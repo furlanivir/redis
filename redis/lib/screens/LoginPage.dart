@@ -1,7 +1,67 @@
 import 'package:flutter/material.dart';
 import 'package:redis/screens/fadeanimation.dart';
+import 'package:redis/screens/SignupPage.dart';
+import 'package:redis/screens/HomePage.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  final String? email;
+  final String? password;
+
+  LoginPage({this.email, this.password});
+
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void initState() {
+  super.initState();
+
+    // Set the initial values of the text fields if provided from SignupPage
+    _emailController.text = widget.email ?? '';
+    _passwordController.text = widget.password ?? '';
+  }
+
+  void _login() {
+    String email = _emailController.text;
+  String password = _passwordController.text;
+
+  // Validate the email and password
+  if (email == 'redis@prova.com' && password == 'redis') {
+    // Clear the text fields after login
+    _emailController.clear();
+    _passwordController.clear();
+
+    // Navigate to the next page after successful login
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => HomePage()),
+    );
+  } else {
+    // Invalid credentials, display an error message or take appropriate action
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Invalid Credentials'),
+          content: Text('Please enter valid email and password.'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,9 +138,9 @@ class LoginPage extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 40),
                     child: Column(
                       children: <Widget>[
-                        FadeAnimation(1.2, makeInput(label: "Email")),
+                        FadeAnimation(1.2, makeInput(label: "Email",controller: _emailController,)),
                         FadeAnimation(1.3,
-                            makeInput(label: "Password", obscureText: true)),
+                            makeInput(label: "Password", obscureText: true,controller: _passwordController,)),
                       ],
                     ),
                   ),
@@ -93,7 +153,7 @@ class LoginPage extends StatelessWidget {
                           child: MaterialButton(
                             minWidth: double.infinity,
                             height: 60,
-                            onPressed: () {},
+                            onPressed: _login,
                             color: Color.fromRGBO(97, 36, 141, 1),
                             elevation: 0,
                             shape: RoundedRectangleBorder(
@@ -114,11 +174,18 @@ class LoginPage extends StatelessWidget {
                         children: <Widget>[
                           Text("Don't have an account? ",
                                style:TextStyle(color: Color.fromRGBO(97, 36, 141, 1))),
-                          Text(
+                          MaterialButton(
+                            onPressed:(){
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SignupPage()));  
+                            },
+                            child: Text(
                             "Sign up",
                             style: TextStyle(
                                 color: Color.fromRGBO(97, 36, 141, 1),
-                                fontWeight: FontWeight.w600, fontSize: 18),
+                                fontWeight: FontWeight.w600, fontSize: 18),),
                           ),
                         ],
                       ))
@@ -141,7 +208,7 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Widget makeInput({label, obscureText = false}) {
+  Widget makeInput({label, obscureText = false,TextEditingController? controller}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -155,6 +222,7 @@ class LoginPage extends StatelessWidget {
         ),
         TextField(
           obscureText: obscureText,
+          controller: controller,
           decoration: InputDecoration(
             contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
             enabledBorder: OutlineInputBorder(
