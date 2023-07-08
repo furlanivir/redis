@@ -1,7 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:redis/screens/fadeanimation.dart';
+import 'package:redis/screens/LoginPage.dart';
 
-class SignupPage extends StatelessWidget {
+class SignupPage extends StatefulWidget {
+  @override
+  _SignupPageState createState() => _SignupPageState();
+}
+
+class _SignupPageState extends State<SignupPage> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return  DecoratedBox(
@@ -64,17 +81,49 @@ class SignupPage extends StatelessWidget {
               ),
               Column(
                 children: <Widget>[
-                  FadeAnimation(1.2, makeInput(label: "Email")),
+                  FadeAnimation(1.2, makeInput(label: "Email", controller: emailController)),
                   FadeAnimation(
-                      1.3, makeInput(label: "Password", obscureText: true)),
+                      1.3, makeInput(label: "Password", obscureText: true, controller: passwordController)),
                   FadeAnimation(1.4,
-                      makeInput(label: "Confirm Password", obscureText: true)),
+                      makeInput(label: "Confirm Password", obscureText: true, controller: confirmPasswordController)),
                 ],
               ),
               FadeAnimation(
                   1.5,
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      String email = emailController.text;
+                      String password = passwordController.text;
+                      String confirmPassword = confirmPasswordController.text;
+                      if (password == confirmPassword) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => LoginPage(
+                              email: email,
+                              password: password,
+                            ),
+                          ),
+                        );
+                      } else {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text("Password Error"),
+                              content: Text("Passwords do not match."),
+                              actions: [
+                                TextButton(
+                                  child: Text("OK"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      }},
                     borderRadius: BorderRadius.circular(50),
                     child: Container(
                       height: 60,
@@ -105,11 +154,18 @@ class SignupPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text("Already have an account? "),
-                      Text(
+                      MaterialButton(
+                      onPressed:(){
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LoginPage()));  
+                            },
+                      child: Text(
                         " Login",
                         style: TextStyle(
                             fontWeight: FontWeight.w600, fontSize: 18),
-                      ),
+                      ),),
                     ],
                   )),
             ],
@@ -120,7 +176,7 @@ class SignupPage extends StatelessWidget {
     );
   }
 
-  Widget makeInput({label, obscureText = false}) {
+  Widget makeInput({label, obscureText = false, controller}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -133,6 +189,7 @@ class SignupPage extends StatelessWidget {
           height: 5,
         ),
         TextField(
+          controller: controller,
           obscureText: obscureText,
           decoration: InputDecoration(
             contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
