@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:redis/screens/Profile.dart';
-import 'package:redis/screens/ProfileResult.dart';
-import 'ProfileModel.dart';
-import 'ProfileResult.dart';
+class SettingsScreen extends StatefulWidget{
+  String? name;
+  String? surname;
+  SettingsScreen({this.name,this.surname});
+  @override
+  SettingsScreenState createState()=>SettingsScreenState();
+}
 
-
-class SettingsScreen extends StatelessWidget{
-  
-  SettingsScreen({Key? key}) : super(key: key);
+class SettingsScreenState extends State<SettingsScreen>{
+  bool checkValue = false;
   
   @override
   Widget build(BuildContext context){
@@ -34,11 +36,73 @@ class SettingsScreen extends StatelessWidget{
           child:  Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              //Personal information
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children:[
+                  InkWell(
+                    onTap: () => Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>ProfileScreen(
+                      name: widget.name,
+                      surname: widget.surname,
+                    ))),
+                    borderRadius: BorderRadius.circular(50),
+                    child: Container(
+                      height: 60,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadiusDirectional.circular(20),
+                        //borderRadius: BorderRadius.circular(50),
+                        image: const DecorationImage(
+                          image: AssetImage('assets/images/sfondo.jpg'),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      child: const Row(
+                        children: [
+                          SizedBox(width: 15),
+                          Icon(Icons.person_2_rounded,color: Color.fromRGBO(174, 183, 227, 1),size: 40),
+                          Text(' Personal information ',
+                          style: TextStyle(fontWeight: FontWeight.normal,letterSpacing: 2,fontSize: 30,color:Color.fromRGBO(174, 183, 227, 1) ),
+                          ),
+                      ])
+                    ),
+                  ),
+                ]),
+              //Community
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children:[
+                  InkWell(
+                    // DA IJMPLEMENTARE PAGINA COMMUNITY 
+                    onTap: () => {},
+                    borderRadius: BorderRadius.circular(50),
+                    child: Container(
+                      height: 60,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadiusDirectional.circular(20),
+                        //borderRadius: BorderRadius.circular(50),
+                        image: const DecorationImage(
+                          image: AssetImage('assets/images/sfondo.jpg'),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      child: const Row(
+                        children: [
+                          SizedBox(width: 15),
+                          Icon(Icons.language_rounded,color: Color.fromRGBO(174, 183, 227, 1),size: 40),
+                          Text(' Community ',
+                          style: TextStyle(fontWeight: FontWeight.normal,letterSpacing: 2,fontSize: 30,color:Color.fromRGBO(174, 183, 227, 1) ),
+                          ),
+                      ])
+                    ),
+                  ),
+                ]),
+              //Notifications 
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  //const Icon(Icons.brightness_medium_rounded,color: Color.fromRGBO(174, 183, 227, 1),size: 40),
                   const SizedBox(width: 20),
                   InkWell(
                     onTap: () {},
@@ -47,7 +111,6 @@ class SettingsScreen extends StatelessWidget{
                       height: 60,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadiusDirectional.circular(20),
-                        //borderRadius: BorderRadius.circular(50),
                         image: const DecorationImage(
                           image: AssetImage('assets/images/sfondo.jpg'),
                           fit: BoxFit.fill,
@@ -56,22 +119,32 @@ class SettingsScreen extends StatelessWidget{
                       child: const Row(
                         children: [
                           SizedBox(width: 10),
-                          Icon(Icons.brightness_medium_rounded,color: Color.fromRGBO(174, 183, 227, 1),size: 40),
-                          Text('  App Theme   ',
+                          Icon(Icons.alarm_add_rounded,color: Color.fromRGBO(174, 183, 227, 1),size: 40),
+                          Text(' Notification ',
                           style: TextStyle(fontWeight: FontWeight.normal,letterSpacing: 2,fontSize: 30,color:Color.fromRGBO(174, 183, 227, 1) ),
                           ),
                         ]
                       )
                     ),
                   ),
+                  Checkbox(value: checkValue, onChanged: (bool? value){
+                    setState((){
+                      checkValue=value!;
+                    });
+                  },
+                  activeColor: Colors.purple,
+                  side: BorderSide(color: Colors.white,width: 3),
+                  ),
                 ],
               ),
+              //Logout
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children:[
                   InkWell(
-                    onTap: () => Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>ProfileScreen())),
+                    // DA IMPLEMENTARE LOG OUT
+                    onTap: () => {},
                     borderRadius: BorderRadius.circular(50),
                     child: Container(
                       height: 60,
@@ -86,47 +159,17 @@ class SettingsScreen extends StatelessWidget{
                       child: const Row(
                         children: [
                           SizedBox(width: 15),
-                          Icon(Icons.person_2_rounded,color: Color.fromRGBO(174, 183, 227, 1),size: 40),
-                          Text('   Change    ',
+                          Icon(Icons.logout_rounded,color: Color.fromRGBO(174, 183, 227, 1),size: 40),
+                          Text(' Logout ',
                           style: TextStyle(fontWeight: FontWeight.normal,letterSpacing: 2,fontSize: 30,color:Color.fromRGBO(174, 183, 227, 1) ),
                           ),
                       ])
                     ),
                   ),
                 ]),
-                Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children:[
-                  InkWell(
-                    onTap: () => Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>Result())),
-                    borderRadius: BorderRadius.circular(50),
-                    child: Container(
-                      height: 60,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadiusDirectional.circular(20),
-                        //borderRadius: BorderRadius.circular(50),
-                        image: const DecorationImage(
-                          image: AssetImage('assets/images/sfondo.jpg'),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      child: const Row(
-                        children: [
-                          SizedBox(width: 15),
-                          Icon(Icons.person_2_rounded,color: Color.fromRGBO(174, 183, 227, 1),size: 40),
-                          Text('   View    ',
-                          style: TextStyle(fontWeight: FontWeight.normal,letterSpacing: 2,fontSize: 30,color:Color.fromRGBO(174, 183, 227, 1) ),
-                          ),
-                      ])
-                    ),
-                  ),
-                   
-                ])
             ],),
         )
       )
     );
-  }
+  } 
 }
-

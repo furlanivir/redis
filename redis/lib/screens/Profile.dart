@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:redis/screens/Settings.dart';
 import 'Settings.dart';
 import 'LoginPage.dart';
-import 'ProfileResult.dart';
-import 'ProfileModel.dart';
 
 class ProfileScreen extends StatefulWidget{
-  const ProfileScreen({super.key});
+  String? name;
+  String? surname;
+  ProfileScreen({this.name,this.surname});
+  //const ProfileScreen({super.key});
 
   @override
   State<StatefulWidget> createState(){
@@ -15,12 +16,22 @@ class ProfileScreen extends StatefulWidget{
 }
 
 class ProfileScreenState extends State<ProfileScreen>{
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController surnameController = TextEditingController();
+  final GlobalKey<FormState> _formKey=GlobalKey<FormState>();
 
-  Model model=Model(name: '', surname: '', mail: '', birth: '');
+  @override
+  void initState(){
+    super.initState();
 
+    // settare valori iniziali se forniti ???
+    nameController.text=widget.name ?? '';
+    surnameController.text = widget.surname ?? '';
+  }
+  
   Widget _buildName(){
     return TextFormField(
+      controller: nameController,
       cursorColor: Colors.white,
       style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
@@ -39,14 +50,12 @@ class ProfileScreenState extends State<ProfileScreen>{
         }
         return null;
       },
-      onSaved: (value){
-        model.name=value!;
-      }
     );
   } //buildName
 
   Widget _buildSurname(){
     return TextFormField(
+      controller: surnameController,
       cursorColor: Colors.white,
       style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
@@ -65,67 +74,13 @@ class ProfileScreenState extends State<ProfileScreen>{
         }
         return null;
       },
-      onSaved: (value){
-        model.surname=value!;
-      }
     );
   } //buildSurname
 
-  Widget _buildMail(){
-    return TextFormField(
-      cursorColor: Colors.white,
-      style: const TextStyle(color: Colors.white),
-      decoration: InputDecoration(
-        labelText: 'Email address',
-        labelStyle: const TextStyle(color: Colors.white),
-        focusedBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.white)
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(25.0),
-          borderSide: const BorderSide(color: Colors.white),
-        ),),
-      validator: (value) { 
-        if(value!.isEmpty){
-          return 'Email is Required';
-        }
-        return null;
-      },
-      onSaved: (value){
-        model.mail=value!;
-        }
-    );
-  } //buildName
-
-    Widget _buildBday(){
-    return TextFormField(
-      cursorColor: Colors.white,
-      style: const TextStyle(color: Colors.white),
-      decoration: InputDecoration(
-        labelText: 'Birthday',
-        labelStyle: const TextStyle(color: Colors.white),
-        focusedBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.white)
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(25.0),
-          borderSide: const BorderSide(color: Colors.white),
-        ),),
-      validator: (value) { 
-        if(value!.isEmpty){
-          return 'Birthday is Required';
-        }
-        return null;
-      },
-      onSaved: (value){
-        model.birth=value!;
-        }
-    );
-  } //bui
-  
   @override
-  
   Widget build(BuildContext context){
+    String name=nameController.text;
+    String surname=surnameController.text;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(88, 86, 184, 1),
@@ -152,15 +107,19 @@ class ProfileScreenState extends State<ProfileScreen>{
               children: <Widget>[
                 _buildName(),
                 _buildSurname(),
-                _buildMail(),
-                _buildBday(),
-                ElevatedButton(onPressed: ()=>{
-                  // 
+                //_buildMail(),
+                //_buildBday(),
+                ElevatedButton(onPressed: ()=>{ 
+                  name = nameController.text,
+                  surname = surnameController.text,
                   if(_formKey.currentState!.validate()){
                     _formKey.currentState!.save(),
                     Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
-                      builder: (context)=>Result(model: this.model))
+                      builder: (context)=>SettingsScreen(
+                        name: name,
+                        surname: surname,
+                      ))
                   )
                   },
                 }, child: const Text('Submit'), 
