@@ -6,8 +6,9 @@ import 'LoginPage.dart';
 class ProfileScreen extends StatefulWidget{
   String? name;
   String? surname;
-  ProfileScreen({this.name,this.surname});
-  //const ProfileScreen({super.key});
+  // aggiungere mail
+  String? birthday;
+  ProfileScreen({this.name,this.surname,this.birthday});
 
   @override
   State<StatefulWidget> createState(){
@@ -18,17 +19,20 @@ class ProfileScreen extends StatefulWidget{
 class ProfileScreenState extends State<ProfileScreen>{
   TextEditingController nameController = TextEditingController();
   TextEditingController surnameController = TextEditingController();
+  // AGGIUNGERE CONTROLLER MAIL?? DA CODICI MATTEO
+  TextEditingController birthdayController = TextEditingController();
   final GlobalKey<FormState> _formKey=GlobalKey<FormState>();
 
   @override
   void initState(){
     super.initState();
 
-    // settare valori iniziali se forniti ???
+    // Set initial values 
     nameController.text=widget.name ?? '';
     surnameController.text = widget.surname ?? '';
+    birthdayController.text = widget.birthday ?? '';
   }
-  
+  // widget to create each entry of the form
   Widget _buildName(){
     return TextFormField(
       controller: nameController,
@@ -41,7 +45,7 @@ class ProfileScreenState extends State<ProfileScreen>{
           borderSide: BorderSide(color: Colors.white)
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(25.0),
+          borderRadius: BorderRadius.circular(15.0),
           borderSide: const BorderSide(color: Colors.white),
         ),),
       validator: (value) { 
@@ -65,7 +69,7 @@ class ProfileScreenState extends State<ProfileScreen>{
           borderSide: BorderSide(color: Colors.white)
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(25.0),
+          borderRadius: BorderRadius.circular(15.0),
           borderSide: const BorderSide(color: Colors.white),
         ),),
       validator: (value) { 
@@ -76,17 +80,73 @@ class ProfileScreenState extends State<ProfileScreen>{
       },
     );
   } //buildSurname
+  /*
+  Widget _buildMail(){
+    return TextFormField(
+      controller: mailController,
+      cursorColor: Colors.white,
+      style: const TextStyle(color: Colors.white),
+      decoration: InputDecoration(
+        labelText: 'Email Address',
+        labelStyle: const TextStyle(color: Colors.white),
+        focusedBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.white)
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15.0),
+          borderSide: const BorderSide(color: Colors.white),
+        ),),
+      validator: (value) { 
+        if(value!.isEmpty){
+          return 'Email is Required';
+        }
+        return null;
+      },
+    );
+  } //buildMail
+*/ //PRENDERE CONTROLLER DA CODICE MATTEO. AGGIUNGERE ANCHE PASSWORD ???
+
+  Widget _buildBirthday(){
+    return TextFormField(
+      controller: birthdayController,
+      cursorColor: Colors.white,
+      style: const TextStyle(color: Colors.white),
+      decoration: InputDecoration(
+        labelText: 'Birthday',
+        labelStyle: const TextStyle(color: Colors.white),
+        focusedBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.white)
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15.0),
+          borderSide: const BorderSide(color: Colors.white),
+        ),),
+      validator: (value) { 
+        if(value!.isEmpty){
+          return 'Birthday is Required';
+        }
+        return null;
+      },
+    );
+  } //buildBirthday
+
 
   @override
   Widget build(BuildContext context){
     String name=nameController.text;
     String surname=surnameController.text;
+    // MAIL 
+    String birthday=birthdayController.text;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(88, 86, 184, 1),
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(Icons.arrow_back_ios,size: 25,color: Colors.white)),
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            const SizedBox(width: 100),
             Image.asset('assets/images/logo.png',
             fit: BoxFit.cover,
             height: 60,
@@ -97,36 +157,43 @@ class ProfileScreenState extends State<ProfileScreen>{
       
       body: Container(
         decoration:  const BoxDecoration(
-          //color: Color.fromRGBO(97, 36, 141, 1),
           gradient: LinearGradient(begin: AlignmentDirectional.topEnd,colors: [Color.fromRGBO(88, 86, 184, 1),Color.fromRGBO(38, 7, 75, 1)])
         ),
-        child: Form(
+        child: Padding(padding: EdgeInsets.symmetric(horizontal: 10), child: 
+        Form(
           key: _formKey,
           child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                _buildName(),
-                _buildSurname(),
-                //_buildMail(),
-                //_buildBday(),
-                ElevatedButton(onPressed: ()=>{ 
-                  name = nameController.text,
-                  surname = surnameController.text,
-                  if(_formKey.currentState!.validate()){
-                    _formKey.currentState!.save(),
-                    Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (context)=>SettingsScreen(
-                        name: name,
-                        surname: surname,
-                      ))
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              _buildName(),
+              _buildSurname(),
+              //_buildMail(),
+              _buildBirthday(),
+              ElevatedButton(onPressed: ()=>{ 
+                name = nameController.text,
+                surname = surnameController.text,
+                birthday = birthdayController.text,
+                if(_formKey.currentState!.validate()){
+                  _formKey.currentState!.save(),
+                  Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (context)=>SettingsScreen(
+                      name: name,
+                      surname: surname,
+                      birthday: birthday
+                    ))
                   )
-                  },
-                }, child: const Text('Submit'), 
+                },
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromRGBO(88, 86, 184, 1)
+                ), 
+                child: const Text('Save', style: TextStyle(fontSize: 20),), 
                 ),
               ],
             ),
           ),
+        )
         )
       );
   }
