@@ -1,4 +1,4 @@
-//import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'Questionnaire.dart';
 //import 'LoginPage.dart';
@@ -171,7 +171,7 @@ class HomePage extends StatelessWidget {
                       ]
                     )),
         
-        /*bottomNavigationBar: CurvedNavigationBar(
+        bottomNavigationBar: CurvedNavigationBar(
           backgroundColor: Color.fromRGBO(106, 128, 237, 1),
           color: Color.fromRGBO(86, 86, 213, 1),
           animationDuration: Duration(milliseconds: 300),
@@ -199,7 +199,7 @@ class HomePage extends StatelessWidget {
             Icons.check_box,
             color: Colors.white,
           ),
-        ]),*/
+        ]),
               
       );
   }
