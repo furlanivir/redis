@@ -1,12 +1,13 @@
 //import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'Questionnaire.dart';
 //import 'LoginPage.dart';
 //import 'Settings.dart';
 //import 'package:molten_navigationbar_flutter/molten_navigationbar_flutter.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
-  static const routename='HomePage4';
+  static const routename='HomePage';
 
   @override
   Widget build(BuildContext context) {
@@ -50,92 +51,141 @@ class HomePage extends StatelessWidget {
                   fit: BoxFit.cover,
                   opacity: 0.9,
                 ),),
-                child: SafeArea(
-                  child: Column(
-                    //mainAxisAlignment: MainAxisAlignment.center,
-                    //crossAxisAlignment: CrossAxisAlignment.center,
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(50,50,50,50),
-                            child: 
-                              Container(
-                                height: 300,
-                                width: 300,
-                                padding: EdgeInsets.all(20),
-                                decoration: BoxDecoration(
-                                  color: Color.fromRGBO(165, 142, 223, 0.263),
-                                  borderRadius: BorderRadius.circular(16)),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
+                        Container(
+                          //: Alignment.center,
+                          width: double.infinity,
+                          padding: const EdgeInsets.fromLTRB(10,15,10,15),
+                          child:Padding( padding: const EdgeInsets.symmetric(),
+                            child: Column( 
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  ElevatedButton(child:Column(children:[
                                     Center(child:
-                                      Padding(padding: const EdgeInsets.symmetric(),
+                                      Padding(padding: const EdgeInsets.all(5),
                                       child: Image.asset('assets/images/puzzle.png'))
                                       ),
-                                ]),
-                          //onTap: ()=>_toQuiz(context),
-                          )),
-
-                  Row(
-                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Column(
-                        children: [
-                          Padding(
-                          padding: const EdgeInsets.fromLTRB(2,10,10,10),
-                            child: 
+                                    Text(
+                                      "Quiz",
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 60,
+                                        fontWeight: FontWeight.w600,
+                                    )),
+                                    ]),
+                                     style: ElevatedButton.styleFrom(
+                                      side: BorderSide(width: 3, color: Color.fromARGB(255, 245, 228, 248)),
+                                      backgroundColor: Color.fromRGBO(165, 142, 223, 0.153),
+                                      shape: RoundedRectangleBorder (borderRadius: BorderRadius.circular(26))),
+                                    onPressed: (){
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: ((context) => Questionnaire())));
+                                    },
+                                  )]       
+                        ))),
+                        Row(children: [
+                          Column(
+                            children:[Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
                               Container(
-                                height: 200,
+                                //alignment: Alignment.center,
                                 width: 200,
-                                padding: EdgeInsets.all(3),
-                                decoration: BoxDecoration(
-                                  color: Color.fromRGBO(165, 142, 223, 0.263),
-                                  borderRadius: BorderRadius.circular(16)),
-                                child: Column(
-                                  //mainAxisAlignment: MainAxisAlignment.center,
-                                  //crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Center(child:
-                                      Padding(padding: const EdgeInsets.symmetric(),
-                                      child: Image.asset('assets/images/trend.png'))
-                                      ),
-                                ]),
-                            //onTap: ()=>_toTrend(context),
-                          )),
-                    ]),
-                  Column(
-                    children:[
-                      Padding(
-                          padding: const EdgeInsets.fromLTRB(15,10,2,10),
-                            child: 
+                                padding: const EdgeInsets.fromLTRB(10,15,10,15),
+                                child:Padding( padding: const EdgeInsets.symmetric(),
+                                  child: Column( 
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        ElevatedButton(child:Column(children:[
+                                          Center(child:
+                                            Padding(padding: const EdgeInsets.all(5),
+                                            child: Image.asset('assets/images/calendario1.png'))
+                                            ),
+                                          Text(
+                                            "Results",
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 40,
+                                              fontWeight: FontWeight.w600,
+                                          )),
+                                          ]),
+                                          style: ElevatedButton.styleFrom(
+                                            side: BorderSide(width: 3, color: Color.fromARGB(255, 245, 228, 248)),
+                                            backgroundColor: Color.fromRGBO(165, 142, 223, 0.153),
+                                            shape: RoundedRectangleBorder (borderRadius: BorderRadius.circular(26))),
+                                          onPressed: (){
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(builder: ((context) => Questionnaire())));
+                                          },
+                                        )]       
+                              )))])]),
+                          Column(
+                            children:[Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
                               Container(
-                                height: 200,
+                                //alignment: Alignment.center,
                                 width: 200,
-                                padding: EdgeInsets.all(3),
-                                decoration: BoxDecoration(
-                                  color: Color.fromRGBO(165, 142, 223, 0.263),
-                                  borderRadius: BorderRadius.circular(16)),
-                                child: Column(
-                                  //mainAxisAlignment: MainAxisAlignment.center,
-                                  //crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Center(child:
-                                      Padding(padding: const EdgeInsets.symmetric(),
-                                      child: Image.asset('assets/images/calendario1.png'))
-                                      ),
-                                ]),
-                          //onTap: ()=>_toResults(context),
-                          )),
-                  ],)
-        ])]),)),
+                                padding: const EdgeInsets.fromLTRB(10,15,10,15),
+                                child:Padding( padding: const EdgeInsets.symmetric(),
+                                  child: Column( 
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                      children: [
+                                        ElevatedButton(child:Column(children:[
+                                          Center(child:
+                                            Padding(padding: const EdgeInsets.all(5),
+                                            child: Image.asset('assets/images/trend.png'))
+                                            ),
+                                          Text(
+                                            "Trend",
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 40,
+                                              fontWeight: FontWeight.w600,
+                                          )),
+                                          ]),
+                                          style: ElevatedButton.styleFrom(
+                                            side: BorderSide(width: 3, color: Color.fromARGB(255, 245, 228, 248)),
+                                            backgroundColor: Color.fromRGBO(165, 142, 223, 0.153),
+                                            shape: RoundedRectangleBorder (borderRadius: BorderRadius.circular(26))),
+                                          onPressed: (){
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(builder: ((context) => Questionnaire())));
+                                          },
+                                        )]       
+                              ))),
+                            ],
+                          )])
+                        ])
+                      ]
+                    )),
         
         /*bottomNavigationBar: CurvedNavigationBar(
           backgroundColor: Color.fromRGBO(106, 128, 237, 1),
           color: Color.fromRGBO(86, 86, 213, 1),
           animationDuration: Duration(milliseconds: 300),
-          onTap: (index) => {} ,
+          onTap: (index) => {
+            if(index==0){Navigator.push(
+              context,
+              MaterialPageRoute(builder: ((context) => Questionnaire()))),},
+            if(index==1){Navigator.push(
+              context,
+              MaterialPageRoute(builder: ((context) => HomePage()))),},
+            if(index==2){Navigator.push(
+              context,
+              MaterialPageRoute(builder: ((context) => Questionnaire()))),}
+          } ,
           items: [
           Icon(
             Icons.timeline,
@@ -143,6 +193,10 @@ class HomePage extends StatelessWidget {
             ),
           Icon(
             Icons.home,
+            color: Colors.white,
+          ),
+          Icon(
+            Icons.check_box,
             color: Colors.white,
           ),
         ]),*/
