@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:redis/screens/Profile.dart';
+import 'SettingsCommunity.dart';
+import 'SettingsFAQ.dart';
 class SettingsScreen extends StatefulWidget{
   String? name;
   String? surname;
@@ -33,6 +35,7 @@ class SettingsScreenState extends State<SettingsScreen>{
             child:  Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                //Creation of the different settings 
                 //Personal information
                 Column(crossAxisAlignment: CrossAxisAlignment.start,
                 children: [      
@@ -42,7 +45,7 @@ class SettingsScreenState extends State<SettingsScreen>{
                     children:[
                       const SizedBox(width: 10),
                       InkWell(
-                        onTap: () => Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>ProfileScreen(
+                        onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ProfileScreen(
                         name: widget.name,
                         surname: widget.surname,
                         birthday: widget.birthday,))),
@@ -79,7 +82,7 @@ class SettingsScreenState extends State<SettingsScreen>{
                 ]
                 ),
 
-                //Community: DA IMPLEMENTARE 
+                //Community
                 Column(crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(crossAxisAlignment: CrossAxisAlignment.center,
@@ -87,7 +90,7 @@ class SettingsScreenState extends State<SettingsScreen>{
                   children:[
                     const SizedBox(width: 10),
                     InkWell(
-                      onTap: () => {},
+                      onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context)=>CommunityScreen())),
                       borderRadius: BorderRadius.circular(50),
                       child: Container(
                         height: 60,
@@ -118,7 +121,46 @@ class SettingsScreenState extends State<SettingsScreen>{
                 ]
                 ),
 
-                //Notifications
+                //FAQ 
+                Column(crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children:[
+                    const SizedBox(width: 10),
+                    InkWell(
+                      onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context)=>FAQScreen())),
+                      borderRadius: BorderRadius.circular(50),
+                      child: Container(
+                        height: 60,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadiusDirectional.circular(20),
+                          image: const DecorationImage(
+                            image: AssetImage('assets/images/sfondo.jpg'),
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                        child: const Row(
+                          children: [
+                            SizedBox(width: 15),
+                            Icon(Icons.question_mark_rounded,color: Color.fromRGBO(174, 183, 227, 1),size: 40),
+                            Text(' FAQ ',
+                            style: TextStyle(fontWeight: FontWeight.normal,letterSpacing: 2,fontSize: 25,color:Color.fromRGBO(174, 183, 227, 1) ))
+                          ]
+                        )
+                      ),
+                    ),
+                  ]),
+                  const Row(children: [
+                    SizedBox(width: 20),
+                    Text('All the answers about our application',style: TextStyle(
+                      fontWeight: FontWeight.normal,letterSpacing: 2,fontSize: 15,color: Color.fromRGBO(174, 183, 227, 1)
+                    ),)
+                  ],)
+                ]
+                ),
+
+                //Notifications: just a checkbox 
                 Column(crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                     Row(crossAxisAlignment: CrossAxisAlignment.center,
@@ -167,14 +209,13 @@ class SettingsScreenState extends State<SettingsScreen>{
                 ],
                 ),
 
-              //Logout: DA IMPLEMENTARE 
+              //Logout:  
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children:[
                   const SizedBox(width: 10),
                   InkWell(
-                    // DA IMPLEMENTARE LOG OUT
                     onTap: () => {},
                     borderRadius: BorderRadius.circular(50),
                     child: Container(

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:redis/screens/Settings.dart';
 import 'Settings.dart';
 import 'LoginPage.dart';
 
 class ProfileScreen extends StatefulWidget{
   String? name;
   String? surname;
-  // aggiungere mail
+  //mail
   String? birthday;
   ProfileScreen({this.name,this.surname,this.birthday});
 
@@ -19,7 +18,6 @@ class ProfileScreen extends StatefulWidget{
 class ProfileScreenState extends State<ProfileScreen>{
   TextEditingController nameController = TextEditingController();
   TextEditingController surnameController = TextEditingController();
-  // AGGIUNGERE CONTROLLER MAIL?? DA CODICI MATTEO
   TextEditingController birthdayController = TextEditingController();
   final GlobalKey<FormState> _formKey=GlobalKey<FormState>();
 
@@ -32,7 +30,8 @@ class ProfileScreenState extends State<ProfileScreen>{
     surnameController.text = widget.surname ?? '';
     birthdayController.text = widget.birthday ?? '';
   }
-  // widget to create each entry of the form
+
+  // Widget to create each entry of the form
   Widget _buildName(){
     return TextFormField(
       controller: nameController,
@@ -104,7 +103,7 @@ class ProfileScreenState extends State<ProfileScreen>{
       },
     );
   } //buildMail
-*/ //PRENDERE CONTROLLER DA CODICE MATTEO. AGGIUNGERE ANCHE PASSWORD ???
+*/ 
 
   Widget _buildBirthday(){
     return TextFormField(
@@ -129,7 +128,6 @@ class ProfileScreenState extends State<ProfileScreen>{
       },
     );
   } //buildBirthday
-
 
   @override
   Widget build(BuildContext context){
@@ -164,12 +162,12 @@ class ProfileScreenState extends State<ProfileScreen>{
           key: _formKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
+            children: <Widget>[ //the form is build using the widget previously created 
               _buildName(),
               _buildSurname(),
               //_buildMail(),
               _buildBirthday(),
-              ElevatedButton(onPressed: ()=>{ 
+              ElevatedButton(onPressed: ()=>{ //when the button is pressed, if the forme is valid, the data written by the users are saved
                 name = nameController.text,
                 surname = surnameController.text,
                 birthday = birthdayController.text,
