@@ -175,9 +175,9 @@ theme_manager
 file:///C:/Users/furla/AppData/Local/Pub/Cache/hosted/pub.dev/theme_manager-1.1.1/
 file:///C:/Users/furla/AppData/Local/Pub/Cache/hosted/pub.dev/theme_manager-1.1.1/lib/
 url_launcher
-2.18
-file:///C:/Users/furla/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher-6.1.11/
-file:///C:/Users/furla/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher-6.1.11/lib/
+3.0
+file:///C:/Users/furla/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher-6.1.12/
+file:///C:/Users/furla/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher-6.1.12/lib/
 url_launcher_android
 2.18
 file:///C:/Users/furla/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_android-6.0.36/
@@ -220,8 +220,8 @@ file:///C:/Users/furla/AppData/Local/Pub/Cache/hosted/pub.dev/xdg_directories-1.
 file:///C:/Users/furla/AppData/Local/Pub/Cache/hosted/pub.dev/xdg_directories-1.0.0/lib/
 redis
 3.0
-file:///C:/Users/furla/Desktop/redis/redis/
-file:///C:/Users/furla/Desktop/redis/redis/lib/
+file:///C:/Users/furla/Desktop/redis/
+file:///C:/Users/furla/Desktop/redis/lib/
 sky_engine
 3.0
 file:///C:/src/flutter/bin/cache/pkg/sky_engine/

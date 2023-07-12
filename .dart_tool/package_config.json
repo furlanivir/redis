@@ -291,9 +291,9 @@
     },
     {
       "name": "url_launcher",
-      "rootUri": "file:///C:/Users/furla/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher-6.1.11",
+      "rootUri": "file:///C:/Users/furla/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher-6.1.12",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "3.0"
     },
     {
       "name": "url_launcher_android",
@@ -362,7 +362,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2023-07-09T20:04:34.759768Z",
+  "generated": "2023-07-12T15:53:10.058942Z",
   "generator": "pub",
   "generatorVersion": "3.1.0-149.0.dev"
 }
