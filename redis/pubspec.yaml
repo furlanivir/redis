@@ -36,6 +36,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
 <<<<<<< HEAD
+<<<<<<< HEAD
   simple_animations: ^5.0.2
   flutter_gif: ^0.0.4
 =======
@@ -43,6 +44,11 @@ dependencies:
   molten_navigationbar_flutter: ^1.0.0
   curved_navigation_bar: ^1.0.3
 >>>>>>> Homepage
+=======
+  flutter_login: ^4.1.1
+  theme_manager: ^1.1.1
+  url_launcher: ^6.1.8
+>>>>>>> Settings
 
 dev_dependencies:
   flutter_test:
@@ -79,6 +85,7 @@ flutter:
 =======
   # To add assets to your application, add an assets section, like this:
   assets:
+<<<<<<< HEAD
   - assets/images/sfondo.jpg
   - assets/images/pittogramma.png
 <<<<<<< HEAD
@@ -91,6 +98,14 @@ flutter:
   - assets/images/trend.png
   - assets/images/puzzle.png
 >>>>>>> Homepage
+=======
+  - assets/images/logo.png
+  - assets/images/logotipo.png
+  - assets/images/pittogramma.png
+  - assets/images/logo_nero.png
+  - assets/images/logotipo_nero.png
+  - assets/images/sfondo.jpg
+>>>>>>> Settings
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
