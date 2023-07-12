@@ -291,9 +291,9 @@
     },
     {
       "name": "url_launcher",
-      "rootUri": "file:///Users/anna/.pub-cache/hosted/pub.dev/url_launcher-6.1.11",
+      "rootUri": "file:///Users/anna/.pub-cache/hosted/pub.dev/url_launcher-6.1.12",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "3.0"
     },
     {
       "name": "url_launcher_android",
@@ -362,7 +362,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2023-07-12T15:43:50.027962Z",
+  "generated": "2023-07-12T21:24:06.422964Z",
   "generator": "pub",
   "generatorVersion": "3.0.1"
 }
