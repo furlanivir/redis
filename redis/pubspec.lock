@@ -268,15 +268,26 @@ packages:
       sha256: daadc9baabec998b062c9091525aa95786508b1c48e9c30f1f891b8bf6ff2e64
       url: "https://pub.dev"
     source: hosted
+<<<<<<< HEAD
     version: "0.5.2"
+=======
+    version: "0.5.1"
+>>>>>>> e584cb66c2de522e7f9fe47d11632bd9f516a6b8
   url_launcher:
     dependency: transitive
     description:
       name: url_launcher
+<<<<<<< HEAD
       sha256: eb1e00ab44303d50dd487aab67ebc575456c146c6af44422f9c13889984c00f3
       url: "https://pub.dev"
     source: hosted
     version: "6.1.11"
+=======
+      sha256: "781bd58a1eb16069412365c98597726cd8810ae27435f04b3b4d3a470bacd61e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.1.12"
+>>>>>>> e584cb66c2de522e7f9fe47d11632bd9f516a6b8
   url_launcher_android:
     dependency: transitive
     description:
@@ -321,18 +332,32 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_web
+<<<<<<< HEAD
       sha256: "6bb1e5d7fe53daf02a8fee85352432a40b1f868a81880e99ec7440113d5cfcab"
       url: "https://pub.dev"
     source: hosted
     version: "2.0.17"
+=======
+      sha256: cc26720eefe98c1b71d85f9dc7ef0cada5132617046369d9dc296b3ecaa5cbb4
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.18"
+>>>>>>> e584cb66c2de522e7f9fe47d11632bd9f516a6b8
   url_launcher_windows:
     dependency: transitive
     description:
       name: url_launcher_windows
+<<<<<<< HEAD
       sha256: "254708f17f7c20a9c8c471f67d86d76d4a3f9c1591aad1e15292008aceb82771"
       url: "https://pub.dev"
     source: hosted
     version: "3.0.6"
+=======
+      sha256: "7967065dd2b5fccc18c653b97958fdf839c5478c28e767c61ee879f4e7882422"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.7"
+>>>>>>> e584cb66c2de522e7f9fe47d11632bd9f516a6b8
   vector_math:
     dependency: transitive
     description:
@@ -343,4 +368,8 @@ packages:
     version: "2.1.4"
 sdks:
   dart: ">=3.0.0 <4.0.0"
+<<<<<<< HEAD
   flutter: ">=3.3.0"
+=======
+  flutter: ">=3.10.0"
+>>>>>>> e584cb66c2de522e7f9fe47d11632bd9f516a6b8

@@ -65,8 +65,12 @@ flutter:
   assets:
   - assets/images/sfondo.jpg
   - assets/images/pittogramma.png
+<<<<<<< HEAD
   #assets/images/line.png
   #assets/images/memory.png
+=======
+
+>>>>>>> e584cb66c2de522e7f9fe47d11632bd9f516a6b8
   - assets/images/calendario1.png
   - assets/images/trend.png
   - assets/images/puzzle.png
