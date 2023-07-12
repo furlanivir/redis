@@ -78,12 +78,12 @@ class _QuestionnaireState extends State<Questionnaire> {
               //crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Center(child: Text(
-                  
-              questionList[currentQuestionIndex].questionText,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 45,
-                fontWeight: FontWeight.w600,
+                  textAlign: TextAlign.center,
+                  questionList[currentQuestionIndex].questionText,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 45,
+                    fontWeight: FontWeight.w600,
             )))]),
           ),
         )

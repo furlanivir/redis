@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:redis/screens/HomePage.dart';
 import 'package:redis/screens/Questionnaire.dart';
+import 'package:redis/screens/TestPage.dart';
 //import 'package:redis_01/screens/HomePage.dart';
 //import 'package:redis/screens/LoginPage.dart';
 //import 'package:redis/screens/Settings.dart';
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return  MaterialApp(
       title: 'Welcome to Flutter',
-      home: Questionnaire()    
+      home: GamePage()    
       );
   }
 }
