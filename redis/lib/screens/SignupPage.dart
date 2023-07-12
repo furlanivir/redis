@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:redis/provider.dart';
 import 'package:redis/screens/fadeanimation.dart';
-import 'package:redis/screens/LoginPage.dart';
+import 'LoginPage.dart';
+import 'package:provider/provider.dart';
 
 class SignupPage extends StatefulWidget {
   @override
@@ -123,7 +125,10 @@ class _SignupPageState extends State<SignupPage> {
                             );
                           },
                         );
-                      }},
+                      };
+                      Provider.of<Exchange>(context,listen: false).sendUser(email);
+                      Provider.of<Exchange>(context,listen: false).sendPsw(password);
+                      },
                     borderRadius: BorderRadius.circular(50),
                     child: Container(
                       height: 60,

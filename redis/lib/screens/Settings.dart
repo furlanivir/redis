@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:redis/provider.dart';
 import 'package:redis/screens/Profile.dart';
+import 'package:redis/screens/SignupPage.dart';
 import 'SettingsCommunity.dart';
 import 'SettingsFAQ.dart';
+import 'package:provider/provider.dart';
 class SettingsScreen extends StatefulWidget{
   String? name;
   String? surname;
@@ -209,14 +212,18 @@ class SettingsScreenState extends State<SettingsScreen>{
                 ],
                 ),
 
-              //Logout:  
+              //Logout: Back to Sign up Page (forget the credentials)  
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children:[
                   const SizedBox(width: 10),
                   InkWell(
-                    onTap: () => {},
+                    onTap: () => {
+                      Provider.of<Exchange>(context,listen: false).sendUser(''),
+                      Provider.of<Exchange>(context,listen: false).sendPsw(''),
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>SignupPage())),
+                    },
                     borderRadius: BorderRadius.circular(50),
                     child: Container(
                       height: 60,

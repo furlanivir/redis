@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:redis/screens/HomePage.dart';
-import 'package:redis/screens/LoginPage.dart';
-import 'package:redis/screens/Settings.dart';
-
+import 'package:redis/provider.dart';
+import 'package:redis/screens/Profile.dart';
+import 'package:redis/screens/Welcome.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,10 +12,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return ChangeNotifierProvider(create: (context)=>Exchange(),
+    child: MaterialApp(
       title: 'Welcome to Flutter',
-      home: HomePage()    
-
-      );
+      home: ProfileScreen()    
+      ));
   }
 }
