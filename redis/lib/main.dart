@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:redis/provider.dart';
 import 'package:redis/screens/Profile.dart';
+import 'package:redis/screens/SplashScreen.dart';
 import 'package:redis/screens/Welcome.dart';
 import 'package:provider/provider.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +17,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(create: (context)=>Exchange(),
     child: MaterialApp(
       title: 'Welcome to Flutter',
-      home: ProfileScreen()    
+      home: SplashScreen()    
       ));
   }
 }

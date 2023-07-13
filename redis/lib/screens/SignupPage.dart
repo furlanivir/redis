@@ -112,11 +112,15 @@ class _SignupPageState extends State<SignupPage> {
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              title: Text("Password Error"),
-                              content: Text("Passwords do not match."),
+                              backgroundColor: Color.fromRGBO(215, 223, 255, 1),
+                              title: Text("Password Error",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold, color: Color.fromRGBO(97, 36, 141, 1)),
+                                      textAlign: TextAlign.center,),
+                              content: Text("Passwords do not match.",style: TextStyle(fontSize: 18,color: Color.fromRGBO(97, 36, 141, 1)),
+                                      textAlign: TextAlign.center,),
                               actions: [
                                 TextButton(
-                                  child: Text("OK"),
+                                  child: Text("OK",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold, color: Color.fromRGBO(97, 36, 141, 1)),
+                                      textAlign: TextAlign.center,),
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
