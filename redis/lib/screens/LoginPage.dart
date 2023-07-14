@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:redis/provider.dart';
 import 'package:redis/screens/fadeanimation.dart';
 import 'package:redis/screens/SignupPage.dart';
 import 'package:redis/screens/HomePage.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   final String? email;
@@ -27,11 +29,11 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _login() {
-    String email = _emailController.text;
+  String email = _emailController.text;
   String password = _passwordController.text;
 
   // Validate the email and password
-  if (email == 'redis@prova.com' && password == 'redis') {
+  if (email == Provider.of<Exchange>(context, listen: false).email && password == Provider.of<Exchange>(context, listen: false).password ) {
     // Clear the text fields after login
     _emailController.clear();
     _passwordController.clear();
@@ -41,17 +43,24 @@ class _LoginPageState extends State<LoginPage> {
       context,
       MaterialPageRoute(builder: (context) => HomePage()),
     );
-  } else {
+  } 
+  else {
     // Invalid credentials, display an error message or take appropriate action
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Invalid Credentials'),
-          content: Text('Please enter valid email and password.'),
+          backgroundColor: Color.fromRGBO(215, 223, 255, 1),
+          title: Text('Invalid Credentials',
+               style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold, color: Color.fromRGBO(97, 36, 141, 1)),
+               textAlign: TextAlign.center,),
+          content: Text('Please enter valid email and password. If you are not registered please proceed with sign up.',
+               style: TextStyle(fontSize: 18,color: Color.fromRGBO(97, 36, 141, 1)),
+               textAlign: TextAlign.center,),
           actions: <Widget>[
             TextButton(
-              child: Text('OK'),
+              child: Text('OK',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold, color: Color.fromRGBO(97, 36, 141, 1)),
+               textAlign: TextAlign.center,),
               onPressed: () {
                 Navigator.of(context).pop();
               },

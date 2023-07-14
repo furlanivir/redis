@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:redis/provider.dart';
 import 'dart:async';
 import 'dart:math';
 
 import 'Questionnaire.dart';
 import 'HomePage.dart';
+import 'package:provider/provider.dart';
+import 'package:redis/repository/DataBaseRepository.dart';
 
-class GamePage extends StatefulWidget {
+class TestPage extends StatefulWidget {
   @override
-  _GamePageState createState() => _GamePageState();
+  _TestPageState createState() => _TestPageState();
 }
 
-class _GamePageState extends State<GamePage> {
+class _TestPageState extends State<TestPage> {
   int timeLimit = 7; // Time limit for each guess in seconds
   int roundLimit = 10; // Number of rounds to play
 
@@ -92,6 +95,7 @@ class _GamePageState extends State<GamePage> {
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
+                  backgroundColor: Color.fromRGBO(142, 156, 223, 1),
                   title: Text('TEST FAILED',
                               textAlign: TextAlign.center,
                               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color.fromRGBO(97, 36, 141, 1)),),
@@ -99,16 +103,20 @@ class _GamePageState extends State<GamePage> {
                               style: TextStyle(fontSize: 18,color: Color.fromRGBO(97, 36, 141, 1)),
                               textAlign: TextAlign.center),
                   actions: [
-                    ElevatedButton(
+                    Center(child:ElevatedButton(
                       onPressed: () {
+                        String day = Provider.of<Exchange>(context).today;
+                        Provider.of<Exchange>(context,listen: false).sendTestScore(5);
+                        Provider.of<DataBaseRepository>(context, listen: false).updateQuizScoreByDate(5, day);
                         Navigator.pop(context);
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(builder: (context) => HomePage()),
                         );
                       },
+                      style: ElevatedButton.styleFrom(backgroundColor: Color.fromRGBO(97, 36, 141, 1)),
                       child: Text('Home',style: TextStyle(fontSize: 20)),
-                    ),
+                    ),),
                   ],
                 );
               },
@@ -118,6 +126,7 @@ class _GamePageState extends State<GamePage> {
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
+                  backgroundColor: Color.fromRGBO(142, 156, 223, 1),
                   title: Text('TEST PASS',
                               textAlign: TextAlign.center,
                               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color.fromRGBO(97, 36, 141, 1)),),
@@ -125,7 +134,7 @@ class _GamePageState extends State<GamePage> {
                               style: TextStyle(fontSize: 18,color: Color.fromRGBO(97, 36, 141, 1)),
                               textAlign: TextAlign.center),
                   actions: [
-                    ElevatedButton(
+                    Center(child:ElevatedButton(
                       onPressed: () {
                         Navigator.pop(context);
                         Navigator.pushReplacement(
@@ -133,8 +142,9 @@ class _GamePageState extends State<GamePage> {
                           MaterialPageRoute(builder: (context) => Questionnaire()),
                         );
                       },
+                      style: ElevatedButton.styleFrom(backgroundColor: Color.fromRGBO(97, 36, 141, 1)),
                       child: Text('Questionnaire',style: TextStyle(fontSize: 20)),
-                    ),
+                    ),),
                   ],
                 );
               },
@@ -149,10 +159,12 @@ class _GamePageState extends State<GamePage> {
     if (!gameStarted) return;
 
     if (tilesData[index] != nowColor) {
+      timer.cancel();
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
+            backgroundColor: Color.fromRGBO(142, 156, 223, 1),
             title: Text('TEST FAILED',
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color.fromRGBO(97, 36, 141, 1)),),
@@ -160,16 +172,20 @@ class _GamePageState extends State<GamePage> {
                         style: TextStyle(fontSize: 18,color: Color.fromRGBO(97, 36, 141, 1)),
                         textAlign: TextAlign.center),
             actions: [
-              ElevatedButton(
+              Center(child:ElevatedButton(
                 onPressed: () {
+                  String day = Provider.of<Exchange>(context).today;
+                  Provider.of<Exchange>(context,listen: false).sendTestScore(5);
+                  Provider.of<DataBaseRepository>(context, listen: false).updateQuizScoreByDate(5, day);
                   Navigator.pop(context);
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => HomePage()),
                   );
                 },
+                style: ElevatedButton.styleFrom(backgroundColor: Color.fromRGBO(97, 36, 141, 1)),
                 child: Text('Home',style: TextStyle(fontSize: 20)),
-              ),
+              ),),
             ],
           );
         },
@@ -186,6 +202,7 @@ class _GamePageState extends State<GamePage> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
+              backgroundColor: Color.fromRGBO(142, 156, 223, 1),
               title: Text('TEST PASS',
                           textAlign: TextAlign.center,
                           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color.fromRGBO(97, 36, 141, 1)),),

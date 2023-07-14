@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-
+import 'package:redis/screens/HomePage.dart';
+import 'package:redis/provider.dart';
 import 'package:redis/screens/question_model.dart';
+import 'package:provider/provider.dart';
 
 class Questionnaire extends StatefulWidget {
   @override
@@ -8,7 +10,6 @@ class Questionnaire extends StatefulWidget {
 }
 
 class _QuestionnaireState extends State<Questionnaire> {
-  //define the datas
   List<Question> questionList = getQuestions();
   int currentQuestionIndex = 0;
   int score0 = 0;
@@ -17,6 +18,7 @@ class _QuestionnaireState extends State<Questionnaire> {
   int score3 = 0;
   int score4 = 0;
   int score5 = 0;
+  double mean_score = 0;
   Answer? selectedAnswer;
   bool isLocked = false;
 
@@ -75,8 +77,6 @@ class _QuestionnaireState extends State<Questionnaire> {
           
           child:Padding( padding: const EdgeInsets.symmetric(),
             child: Column(
-              //mainAxisAlignment: MainAxisAlignment.center,
-              //crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Center(child: Text(
                   textAlign: TextAlign.center,
@@ -154,7 +154,7 @@ class _QuestionnaireState extends State<Questionnaire> {
           };
         },
       )
-    );  //perchè è di tipo int
+    );  
   }
 
   _nextButton(){
@@ -166,14 +166,13 @@ class _QuestionnaireState extends State<Questionnaire> {
 
     return Container(
       width: MediaQuery.of(context).size.width*0.5,
-      
       height: 48,
       child: ElevatedButton(
         child: Text(
           isLastQuestion? "Submit":"Next", 
           style: TextStyle(
                 fontSize: 35,
-                fontWeight: FontWeight.w600)),  //perchè di tipo int
+                fontWeight: FontWeight.w600)),  
         style: ElevatedButton.styleFrom(
           shape: const StadiumBorder(),
           primary: Color.fromARGB(255, 93, 129, 245),
@@ -196,11 +195,11 @@ class _QuestionnaireState extends State<Questionnaire> {
          
         },
       )
-    );  //perchè è di tipo int
+    );  
   }
   
   _showScoreDialog(){
-    
+    final mean_score = (score1*1 + score2*2 + score3*3 + score4*4 + score5*5)/questionList.length;
     return AlertDialog(
       title: Text("Nothing: $score0 times; \nVery few: $score1 times; \nFew: $score2 times; \nQuite: $score3 times; \nA lot: $score4 times; \nToo much: $score5 times; \n", 
           style: TextStyle(
@@ -209,9 +208,17 @@ class _QuestionnaireState extends State<Questionnaire> {
               fontWeight: FontWeight.w600,
       )),
       content: ElevatedButton(
-        child: const Text("Restart"), 
+        child: const Text("Save"), 
+        style: ElevatedButton.styleFrom(
+          primary: Color.fromARGB(255, 93, 129, 245),
+          onPrimary: Colors.white,
+        ),
         onPressed: (){
-          Navigator.pop(context);
+          Navigator.pop(context,
+            MaterialPageRoute(
+            builder: (context) => HomePage())
+          );
+          Provider.of<Exchange>(context, listen:false).getMeanScore(mean_score);
           setState(() {
             currentQuestionIndex = 0;
             score0=0;
