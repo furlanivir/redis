@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:redis/database/daos/SleepDataDao.dart';
+import 'package:redis/database/database.dart';
 
 class Exchange extends ChangeNotifier{
   String email='';
   String password='';
-  int testScore = 0;
+  double testScore = 0;
   double mean_score = 0;
+  String today='';
 
   void sendUser(String data){
     email=data;
@@ -16,7 +19,7 @@ class Exchange extends ChangeNotifier{
     notifyListeners();
   }
 
-  void sendTestScore(int score){
+  void sendTestScore(double score){
     testScore = score;
     notifyListeners();
   }
@@ -25,4 +28,11 @@ class Exchange extends ChangeNotifier{
     mean_score = score;
     notifyListeners();
   }
+
+  void getDay(day){
+    today = day;
+    notifyListeners();
+  }
+
+ 
 }

@@ -6,6 +6,7 @@ import 'dart:math';
 import 'Questionnaire.dart';
 import 'HomePage.dart';
 import 'package:provider/provider.dart';
+import 'package:redis/repository/DataBaseRepository.dart';
 
 class TestPage extends StatefulWidget {
   @override
@@ -104,7 +105,9 @@ class _TestPageState extends State<TestPage> {
                   actions: [
                     Center(child:ElevatedButton(
                       onPressed: () {
-                        Provider.of<Exchange>(context,listen: false).sendTestScore(10);
+                        String day = Provider.of<Exchange>(context).today;
+                        Provider.of<Exchange>(context,listen: false).sendTestScore(5);
+                        Provider.of<DataBaseRepository>(context, listen: false).updateQuizScoreByDate(5, day);
                         Navigator.pop(context);
                         Navigator.pushReplacement(
                           context,
@@ -171,7 +174,9 @@ class _TestPageState extends State<TestPage> {
             actions: [
               Center(child:ElevatedButton(
                 onPressed: () {
-                  Provider.of<Exchange>(context,listen: false).sendTestScore(10);
+                  String day = Provider.of<Exchange>(context).today;
+                  Provider.of<Exchange>(context,listen: false).sendTestScore(5);
+                  Provider.of<DataBaseRepository>(context, listen: false).updateQuizScoreByDate(5, day);
                   Navigator.pop(context);
                   Navigator.pushReplacement(
                     context,
