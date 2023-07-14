@@ -27,7 +27,7 @@ class Methods extends StatelessWidget {
     SleepData values = SleepData('', 0, 0, 0, 0, 0, 0);
 
     final Today = DateTime.now();
-    final dateTime = Today.subtract(Duration(days:12));
+    final dateTime = Today.subtract(Duration(days:2));
     final dateFormatter = DateFormat('yyyy-MM-dd');
     final formattedDate = dateFormatter.format(dateTime);
     final day = formattedDate.toString();
