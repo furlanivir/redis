@@ -33,7 +33,7 @@ class Methods extends StatelessWidget {
     final formattedDate = dateFormatter.format(dateTime);
     final day = formattedDate.toString();
     //print('ho ottenuto il giorno: $day');
-    Provider.of<Exchange>(context, listen: false).getDay(day);
+    
 
     _authorize() async {
       //Create the request
@@ -164,6 +164,7 @@ class Methods extends StatelessWidget {
     }
 
     isInstancePresent(day).then((isPresent) {
+      Provider.of<Exchange>(context, listen: false).getDay(day);
       if (isPresent) {
         return Container(
           child: MaterialApp(

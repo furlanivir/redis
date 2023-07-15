@@ -14,11 +14,11 @@ class TestPage extends StatefulWidget {
 }
 
 class _TestPageState extends State<TestPage> {
-  int timeLimit = 7; // Time limit for each guess in seconds
+  int timeLimit = 5; // Time limit for each guess in seconds
   int roundLimit = 10; // Number of rounds to play
 
   int score = 0;
-  int timeLeft = 7;
+  int timeLeft = 5;
   int roundsPlayed = 0;
 
   late Color nowColor;

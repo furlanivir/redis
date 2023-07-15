@@ -1,11 +1,14 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:redis/screens/DailyResults.dart';
+import 'package:redis/screens/Profile.dart';
+import 'package:redis/screens/TestPage.dart';
 import 'package:redis/screens/WeekResults.dart';
 import 'Questionnaire.dart';
-//import 'LoginPage.dart';
+import 'LoginPage.dart';
 import 'Settings.dart';
 import 'package:molten_navigationbar_flutter/molten_navigationbar_flutter.dart';
+
 
 class HomePage extends StatefulWidget {
 
@@ -24,7 +27,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar:AppBar(
         backgroundColor: Color.fromRGBO(32, 12, 75, 1),
-        actions: [IconButton(onPressed: () => {}, icon: const Icon(Icons.person, color: Color.fromRGBO(215, 223, 255, 1)))],
+        actions: [IconButton(onPressed: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>ProfileScreen()))}, icon: const Icon(Icons.person, color: Color.fromRGBO(215, 223, 255, 1)))],
         title: Container(child: Image.asset('assets/images/pittogramma.png'), height: 100),
       ),
       drawer: Drawer(
@@ -38,12 +41,12 @@ class _HomePageState extends State<HomePage> {
             ListTile(
               leading: Icon(Icons.logout),
               title: Text('Logout'),
-                  //onTap: ()=>_toLoginPage(context),
+                  onTap: ()=> Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>LoginPage()))
              ),
             ListTile(
               leading: Icon(Icons.settings),
               title: Text('Settings'),
-                  //onTap: () => Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>SettingsScreen()))
+                  onTap: () => Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>SettingsScreen()))
             )
           ],
         ),
@@ -89,7 +92,7 @@ class _HomePageState extends State<HomePage> {
                                     onPressed: (){
                                       Navigator.push(
                                         context,
-                                        MaterialPageRoute(builder: ((context) => Questionnaire())));
+                                        MaterialPageRoute(builder: ((context) => TestPage())));
                                     },
                                   ),
                                   ],       

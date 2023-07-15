@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:redis/provider.dart';
+import 'package:redis/screens/LoginPage.dart';
 import 'package:redis/screens/Profile.dart';
 import 'package:redis/screens/SignupPage.dart';
 import 'SettingsCommunity.dart';
@@ -174,7 +175,7 @@ class SettingsScreenState extends State<SettingsScreen>{
                     onTap: () => {
                       Provider.of<Exchange>(context,listen: false).sendUser(''),
                       Provider.of<Exchange>(context,listen: false).sendPsw(''),
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>SignupPage())),
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>LoginPage())),
                     },
                     borderRadius: BorderRadius.circular(50),
                     child: Container(

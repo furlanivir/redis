@@ -230,10 +230,11 @@ class _QuestionnaireState extends State<Questionnaire> {
             score5=0;
             selectedAnswer = null;
           });
-          Navigator.push(
-              context,
-              MaterialPageRoute(builder: ((context) => HomePage()))
-          );
+          Navigator.pop(context);
+          Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) => HomePage()),
+                        );
+          
       },),
     );
   }
