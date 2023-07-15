@@ -4,6 +4,9 @@ import 'package:redis/screens/WeekResultsSleep.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:redis/screens/HomePage.dart';
 import 'package:redis/screens/DailyResults.dart';
+import 'package:redis/provider.dart';
+import 'package:provider/provider.dart';
+import '../repository/DataBaseRepository.dart';
 
 class WeekResults extends StatefulWidget {
   const WeekResults({super.key});
@@ -13,14 +16,34 @@ class WeekResults extends StatefulWidget {
 }
 
 class __WeekResultsState extends State<WeekResults> {
+
+  List<int?> eff = [];
+  List<double?> quiz = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadWeekData();
+  }
+
+  Future<void> _loadWeekData() async {
+    eff = await Provider.of<DataBaseRepository>(context, listen: false).findAllEfficiency();
+    quiz = await Provider.of<DataBaseRepository>(context, listen: false).findAllQuiz();
+    setState(() {}); // Trigger a rebuild after loading the data
+  }
+
+
+
   List<Color> gradientColors = [
     const Color(0xFF50E4FF),
     const Color(0xFF2196F3),
   ];
 
+  
 
   @override
   Widget build(BuildContext context) {
+    int n = eff.length;
     return 
     Scaffold(
       appBar:AppBar(
@@ -65,7 +88,7 @@ class __WeekResultsState extends State<WeekResults> {
 
               SizedBox(
                 width:400, 
-                child: 
+                child: n>=7?
                   Stack(
                     children: <Widget>[
                       AspectRatio(
@@ -73,12 +96,19 @@ class __WeekResultsState extends State<WeekResults> {
                         child: Padding(
                           padding: EdgeInsets.all(7),
                           child: LineChart(
-                            mainData(),
+                            mainData(eff, quiz),
                           ),
                         ),
                       ),
                     ],
-              )),
+              ):
+              Text('There is still too little data, check again later. \n\nIn the meantime, hold on, you will achieve the desired results!',
+             style: TextStyle(
+                    fontStyle: FontStyle.italic,
+                    color: Colors.white,
+                    fontSize: 27,
+                    fontWeight: FontWeight.w600)),
+              ),
               
               const SizedBox(height: 70),
 
@@ -101,7 +131,7 @@ class __WeekResultsState extends State<WeekResults> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                      builder: (context) => const WeekResultsSleep()));
+                      builder: (context) =>  WeekResultsSleep()));
                   }
               )),
 
@@ -216,7 +246,9 @@ class __WeekResultsState extends State<WeekResults> {
     return Text(text, style: style, textAlign: TextAlign.left);
   }
 
-  LineChartData mainData() {
+  LineChartData mainData(eff, quiz) {
+    int n = eff.length;
+  
     return LineChartData(
       gridData: FlGridData(
         show: true,
@@ -271,14 +303,14 @@ class __WeekResultsState extends State<WeekResults> {
       maxY: 5,
       lineBarsData: [
         LineChartBarData(
-          spots: const [
-            FlSpot(0, 3),
-            FlSpot(1, 2),
-            FlSpot(2, 5),
-            FlSpot(3, 3.1),
-            FlSpot(4, 4),
-            FlSpot(5, 3),
-            FlSpot(6, 4),
+          spots:  [
+            FlSpot(0, (5 * eff[n-7].toDouble()) / (100 * quiz[n-7])),
+            FlSpot(1, (5 * eff[n-6].toDouble()) / (100 * quiz[n-6])),
+            FlSpot(2, (5 * eff[n-5].toDouble()) / (100 * quiz[n-5])),
+            FlSpot(3, (5 * eff[n-4].toDouble()) / (100 * quiz[n-4])),
+            FlSpot(4, (5 * eff[n-3].toDouble()) / (100 * quiz[n-3])),
+            FlSpot(5, (5 * eff[n-2].toDouble()) / (100 * quiz[n-2])),
+            FlSpot(6, (5 * eff[n-1].toDouble()) / (100 * quiz[n-1])),
           ],
           isCurved: true,
           gradient: LinearGradient(

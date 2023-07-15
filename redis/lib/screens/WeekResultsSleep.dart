@@ -5,10 +5,37 @@ import 'package:flutter/material.dart';
 import 'package:redis/screens/WeekResults.dart';
 import 'package:redis/screens/HomePage.dart';
 import 'package:redis/screens/DailyResults.dart';
+import 'package:redis/database/entities/SleepData.dart';
+import 'package:redis/provider.dart';
+import 'package:provider/provider.dart';
+import 'package:redis/repository/DataBaseRepository.dart';
 
-class WeekResultsSleep extends StatelessWidget {
 
-  const WeekResultsSleep({super.key});
+class WeekResultsSleep extends StatefulWidget{
+
+  @override
+  State<WeekResultsSleep> createState()=> _WeekResultsSleepState();
+}
+
+class _WeekResultsSleepState extends State<WeekResultsSleep> {
+
+  List<int?> deep = [];
+  List<int?> rem = [];
+  List<int?> wake = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadWeekData();
+  }
+
+  Future<void> _loadWeekData() async {
+    deep = await Provider.of<DataBaseRepository>(context, listen: false).findAllDeep();
+    rem = await Provider.of<DataBaseRepository>(context, listen: false).findAllRem();
+    wake = await Provider.of<DataBaseRepository>(context, listen: false).findAllWake();
+    setState(() {}); // Trigger a rebuild after loading the data
+  }
+
 
   final deepColor = const Color(0xFF50E4FF);
   final remColor = const Color.fromARGB(255, 197, 235, 83);
@@ -17,9 +44,9 @@ class WeekResultsSleep extends StatelessWidget {
 
   BarChartGroupData generateGroupData(
     int x,
-    double deep,
-    double wake,
-    double rem,
+    int? deep,
+    int? wake,
+    int? rem,
   ) {
     return BarChartGroupData(
       x: x,
@@ -27,19 +54,19 @@ class WeekResultsSleep extends StatelessWidget {
       barRods: [
         BarChartRodData(
           fromY: 0,
-          toY: deep,
+          toY: deep!.toDouble(),
           color: deepColor,
           width: 7,
         ),
         BarChartRodData(
           fromY: deep + betweenSpace,
-          toY: deep + betweenSpace + wake,
+          toY: deep + betweenSpace + wake!.toDouble(),
           color: wakeColor,
           width: 7,
         ),
         BarChartRodData(
           fromY: deep + betweenSpace + wake + betweenSpace,
-          toY: deep + betweenSpace + wake + betweenSpace + rem,
+          toY: deep + betweenSpace + wake + betweenSpace + rem!.toDouble(),
           color: remColor,
           width: 7,
         ),
@@ -81,9 +108,10 @@ class WeekResultsSleep extends StatelessWidget {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
+    int n = deep.length;
+    print ('lunghezza :$n');
     return 
     Scaffold(
       appBar:AppBar(
@@ -91,7 +119,7 @@ class WeekResultsSleep extends StatelessWidget {
           
         title: const Text('WeeklyResults',style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,color: Color.fromARGB(255, 190, 161, 234),),),
       ),
-
+      
       body: 
         Container(
           width: double.infinity,
@@ -125,11 +153,12 @@ class WeekResultsSleep extends StatelessWidget {
             )),
               
             const SizedBox(height: 20),
-
+            
             Container(
+              
               margin: const EdgeInsets.symmetric(horizontal: 10),
               padding: const EdgeInsets.all(17),
-              child: 
+              child: n>=7?
                 Padding(
                   padding: const EdgeInsets.all(24),
                     child: Column(
@@ -166,21 +195,30 @@ class WeekResultsSleep extends StatelessWidget {
                               borderData: FlBorderData(show: false),
                               gridData: const FlGridData(show: false),
                               barGroups: [
-                                generateGroupData(0, 2, 3, 2),
-                                generateGroupData(1, 2, 5, 1.7),
-                                generateGroupData(2, 1.3, 3.1, 2.8),
-                                generateGroupData(3, 3.1, 4, 3.1),
-                                generateGroupData(4, 0.8, 3.3, 3.4),
-                                generateGroupData(5, 2, 5.6, 1.8),
-                                generateGroupData(6, 1.3, 3.2, 2),
+                                
+                                generateGroupData(0, deep[n-7], wake[n-7], rem[n-7]),
+                                generateGroupData(1, deep[n-6], wake[n-6], rem[n-6]),
+                                generateGroupData(2, deep[n-5], wake[n-5], rem[n-5]),
+                                generateGroupData(3, deep[n-4], wake[n-4], rem[n-4]),
+                                generateGroupData(4, deep[n-3], wake[n-3], rem[n-3]),
+                                generateGroupData(5, deep[n-2], wake[n-2], rem[n-2]),
+                                generateGroupData(6, deep[n-1], wake[n-1], rem[n-1]),
+                            
                               ],
-                              maxY: 11+ (betweenSpace * 3),
+                              maxY: 300,
                             ),
                           ),
                         ),
                       ],
                     ),
-            )),
+            ):
+             Text('There is still too little data, check again later. \n\nIn the meantime, hold on, you will achieve the desired results!',
+             style: TextStyle(
+                    fontStyle: FontStyle.italic,
+                    color: Colors.white,
+                    fontSize: 27,
+                    fontWeight: FontWeight.w600)),
+            ),
                     
             const SizedBox(height: 70),
 

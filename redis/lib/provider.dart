@@ -5,7 +5,6 @@ import 'package:redis/database/database.dart';
 class Exchange extends ChangeNotifier{
   String email='';
   String password='';
-  double testScore = 0;
   double mean_score = 0;
   String today='';
 
@@ -19,10 +18,6 @@ class Exchange extends ChangeNotifier{
     notifyListeners();
   }
 
-  void sendTestScore(double score){
-    testScore = score;
-    notifyListeners();
-  }
 
   void getMeanScore(score){
     mean_score = score;

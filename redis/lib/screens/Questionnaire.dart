@@ -4,6 +4,8 @@ import 'package:redis/provider.dart';
 import 'package:redis/screens/question_model.dart';
 import 'package:provider/provider.dart';
 
+import '../repository/DataBaseRepository.dart';
+
 class Questionnaire extends StatefulWidget {
   @override
   State<Questionnaire> createState() => _QuestionnaireState();
@@ -218,7 +220,9 @@ class _QuestionnaireState extends State<Questionnaire> {
             MaterialPageRoute(
             builder: (context) => HomePage())
           );
+          String day = Provider.of<Exchange>(context).today;
           Provider.of<Exchange>(context, listen:false).getMeanScore(mean_score);
+          Provider.of<DataBaseRepository>(context, listen: false).updateQuizScoreByDate(mean_score, day);
           setState(() {
             currentQuestionIndex = 0;
             score0=0;
