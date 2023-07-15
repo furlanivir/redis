@@ -6,6 +6,7 @@ import 'package:redis/screens/SignupPage.dart';
 import 'SettingsCommunity.dart';
 import 'SettingsFAQ.dart';
 import 'package:provider/provider.dart';
+import 'HomePage.dart';
 
 //Page with different settings 
 class SettingsScreen extends StatefulWidget{
@@ -26,7 +27,7 @@ class SettingsScreenState extends State<SettingsScreen>{
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(32, 12, 75, 1),
         leading: IconButton(
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage())),
           icon: const Icon(Icons.arrow_back_ios,size: 25,color: Colors.white)),
         title: const Text('Settings', style: 
           TextStyle(fontWeight: FontWeight.normal,letterSpacing: 2,fontSize: 30,color:Colors.white)
