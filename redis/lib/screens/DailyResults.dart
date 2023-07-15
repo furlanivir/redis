@@ -7,6 +7,7 @@ import 'package:redis/repository/DataBaseRepository.dart';
 import 'DailyResultsInfo.dart';
 import 'DailyGraph.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+
 class Results extends StatefulWidget{
 
   @override
@@ -14,18 +15,36 @@ class Results extends StatefulWidget{
 }
 
 class _ResultsState extends State<Results>{
+  List<SleepData?> todayData = [SleepData('', 0, 0, 0, 0, 0, 0)];
 
-  _getTodayData(day) async{
-    final _todayData = await Provider.of<DataBaseRepository>(context).findAllDayData(day);
-    return _todayData;
+  @override
+  void initState() {
+    super.initState();
+    _loadTodayData();
+  }
+
+  Future<void> _loadTodayData() async {
+    String today = Provider.of<Exchange>(context, listen: false).today;
+    
+    todayData = await Provider.of<DataBaseRepository>(context, listen: false).findAllDayData(today);
+    setState(() {}); // Trigger a rebuild after loading the data
   }
   
   @override
   Widget build(BuildContext context){
-    //double mean_score = Provider.of<Exchange>(context).mean_score;
-    String today = Provider.of<Exchange>(context).today;
-    print(today);
-    List<SleepData> todayData =_getTodayData(today); //DA SISTEMARE !!!!!
+    // dati in giuste unità 
+    final dur=todayData[0]!.duration.toInt()~/(3.6*1000000);
+    final deep =todayData[0]!.deep!~/(60);
+    final rem = todayData[0]!.rem!~/(60);
+    final wake = todayData[0]!.wake!~/(60);
+    final score = todayData[0]!.efficiency;
+    double quiz = Provider.of<Exchange>(context, listen: false).mean_score;
+    // percentuali riferimento 
+    int? refDeepMin = dur*10~/100;
+    int? refDeepMax = dur*12~/100;
+    int? refRemMin = dur*19~/100;
+    int? refRemMax = dur*23~/100;
+    int? refWakeMax = dur*9~/100;
 
     return Scaffold(
       appBar: AppBar(
@@ -61,17 +80,32 @@ class _ResultsState extends State<Results>{
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text('Check your sleep data:',style: TextStyle(color: Color.fromARGB(255, 190, 161, 234),fontSize: 20)),
-                    BarChartSample(),
+                    BarChartSample(todayData[0]!.duration.toInt(),todayData[0]!.deep,todayData[0]!.rem,todayData[0]!.wake,todayData[0]!.efficiency),
                     Padding(padding: EdgeInsetsDirectional.symmetric(horizontal: 5,vertical: 4), 
                       child: Column(crossAxisAlignment: CrossAxisAlignment.start, 
                         children: [
-                          Text('You slept a total of 9 hours (METTERE DATI)'),
+                          Text('You slept a total of ${(Duration(milliseconds: (todayData[0]!.duration.toInt()))).inHours.toString().padLeft(2, '0')}:'
+                                                      '${((Duration(milliseconds: (todayData[0]!.duration.toInt()))).inMinutes % 60).toString().padLeft(2, '0')}:'
+                                                      '${((Duration(milliseconds: (todayData[0]!.duration.toInt()))).inSeconds % 60).toString().padLeft(2,'0')}'),
                           Text('Sleep Stages: '),
-                          Text('Deep: '),
-                          Text('Rem: '),
-                          Text('Wake: '),
-                          Text('Your overall sleep score was: '),
+                          Text('Deep: ${todayData[0]!.deep}'),
+                          Text('Rem: ${todayData[0]!.rem}'),
+                          Text('Wake: ${todayData[0]!.wake}'),
+                          Text('Your overall sleep score was: ${todayData[0]!.efficiency}'),
                           Text('INSERIRE COMMENTO SE I DATI SONO BUONI O MENO'),
+                          Container(
+                            child: (score!<75 && quiz>=4) ? (Padding(padding: EdgeInsets.symmetric(), child: Column(
+                                children: [Text('DORMITO MALE E TEST MALE')]))): 
+                                ((score>=75 && quiz<4) ? (Padding(padding: EdgeInsets.symmetric(),child: Column( children: [
+                                Text('DORMITO BENE E TEST BENE')]))) :  
+                                ((score<75 && quiz<4)? (Padding(padding: EdgeInsets.symmetric(),child: Column(children: [
+                                  Text('DORMITO MALE MA TEST BENE')]))) :
+                                  (Padding(padding: EdgeInsets.symmetric(),child: Column(children: [
+                                  Text('DORMITO BENE MA TEST MALE')]))
+                                )
+                                )
+                                )
+                          )
                         ],
                       )
                     ),
@@ -111,5 +145,5 @@ class _ResultsState extends State<Results>{
             ),
       ])
     );
-  } 
+  }
 }

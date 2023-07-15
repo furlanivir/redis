@@ -3,15 +3,24 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class BarChartSample extends StatefulWidget {
-  BarChartSample({super.key});
+  final int? dur;
+  final int? deep;
+  final int? rem;
+  final int? wake;
+  final int? score;
+  BarChartSample(this.dur,this.deep,this.rem,this.wake,this.score);
+  
+  late int? percDeep = dur!*12~/100;
+  late int? percRem = dur!*27~/100;
+  late int? percWake = dur!*9~/100;
 
   final shadowColor = const Color.fromARGB(255, 167, 166, 166);
-  final dataList = [
-    const _BarData(Color.fromRGBO(142, 156, 223,1), 7, 8,'Time'),
-    const _BarData(Color.fromRGBO(146, 43, 220, 1), 12, 8,'Deep'),
-    const _BarData(Color.fromARGB(255, 205, 84, 227), 10, 11,'REM'),
-    const _BarData(Color.fromARGB(255, 172, 136, 243), 2.5, 5,'Wake'),
-    const _BarData(Color.fromRGBO(215, 223, 255,1), 2, 2.5,'Score'),
+  late List<_BarData> dataList = [
+    _BarData(const Color.fromRGBO(142, 156, 223,1), dur!~/(3.6*1000000), 8,'Time'),
+    _BarData(Color.fromRGBO(146, 43, 220, 1), deep!~/(60), percDeep,'Deep'),
+    _BarData(Color.fromARGB(255, 205, 84, 227), rem!~/(60), percRem,'REM'),
+    _BarData(Color.fromARGB(255, 172, 136, 243), wake!~/(60), percWake,'Wake'),
+    
   ];
 
   @override
@@ -22,20 +31,20 @@ class _BarChartSampleState extends State<BarChartSample> {
   BarChartGroupData generateBarGroup(
     int x,
     Color color,
-    double value,
-    double shadowValue,
+    int? value,
+    int? shadowValue,
     String what
   ) {
     return BarChartGroupData(
       x: x,
       barRods: [
         BarChartRodData(
-          toY: value,
+          toY: value!.toDouble(),
           color: color,
           width: 14,
         ),
         BarChartRodData(
-          toY: shadowValue,
+          toY: shadowValue!.toDouble(),
           color: widget.shadowColor,
           width: 6,
         ),
@@ -173,8 +182,8 @@ class _BarChartSampleState extends State<BarChartSample> {
 class _BarData {
   const _BarData(this.color, this.value, this.shadowValue, this.what);
   final Color color;
-  final double value;
-  final double shadowValue;
+  final int? value;
+  final int? shadowValue;
   final String what;
 }
 
