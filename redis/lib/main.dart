@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:redis/database/database.dart';
 import 'package:redis/modules/methods.dart';
 import 'package:redis/repository/DataBaseRepository.dart';
+import 'package:redis/screens/SplashScreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(create: (context)=>Exchange(),
     child: MaterialApp(
       title: 'Welcome to Flutter',
-      home: Methods(),    
+      home: SplashScreen(),    
       ));
   }
 }

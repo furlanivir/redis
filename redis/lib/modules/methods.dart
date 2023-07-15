@@ -3,6 +3,7 @@ import 'package:floor/floor.dart';
 import 'package:redis/database/database.dart';
 import 'package:redis/database/entities/SleepData.dart';
 import 'package:redis/provider.dart';
+import 'package:redis/screens/HomePage.dart';
 import 'package:redis/screens/SplashScreen.dart';
 import 'package:redis/utils/impact.dart';
 import 'package:redis/modules/obtainData.dart';
@@ -36,8 +37,10 @@ class Methods extends StatelessWidget {
 
     _authorize() async {
       //Create the request
+      final password_valid = Provider.of<Exchange>(context, listen: false).password;
       final url = Impact.baseUrl + Impact.tokenEndpoint;
-      final body = {'username': Impact.username, 'password': Impact.password};
+      final body = {'username': Impact.username, 'password': password_valid};
+
 
       //Get the response
       //print('Calling authorize: $url');
@@ -164,7 +167,7 @@ class Methods extends StatelessWidget {
       if (isPresent) {
         return Container(
           child: MaterialApp(
-            home: SplashScreen(),
+            home: HomePage(),
           ),
         );
       } else {
@@ -176,7 +179,7 @@ class Methods extends StatelessWidget {
 
     return Container(
       child: MaterialApp(
-        home: SplashScreen(),
+        home: HomePage(),
       ),
     );
   } 

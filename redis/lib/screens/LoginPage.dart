@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:redis/modules/methods.dart';
 import 'package:redis/provider.dart';
 import 'package:redis/screens/fadeanimation.dart';
 import 'package:redis/screens/SignupPage.dart';
 import 'package:redis/screens/HomePage.dart';
 import 'package:provider/provider.dart';
+import 'dart:convert';
+import 'package:crypto/crypto.dart';
+import 'package:redis/utils/impact.dart';
 
 class LoginPage extends StatefulWidget {
   final String? email;
@@ -31,17 +35,22 @@ class _LoginPageState extends State<LoginPage> {
   void _login() {
   String email = _emailController.text;
   String password = _passwordController.text;
+  var password_bytes = utf8.encode(password); // Convert password to bytes
+  var digest = sha256.convert(password_bytes); // Hash bytes using SHA-256 algorithm
+  final password_Digest = digest.toString();
+
 
   // Validate the email and password
-  if (email == Provider.of<Exchange>(context, listen: false).email && password == Provider.of<Exchange>(context, listen: false).password ) {
+  if (email == Provider.of<Exchange>(context, listen: false).email && password_Digest == Impact.password_RightDigest ) {
     // Clear the text fields after login
     _emailController.clear();
     _passwordController.clear();
 
+
     // Navigate to the next page after successful login
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => HomePage()),
+      MaterialPageRoute(builder: (context) => Methods()),
     );
   } 
   else {
