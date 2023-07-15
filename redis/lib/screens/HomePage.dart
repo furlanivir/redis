@@ -1,4 +1,3 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:redis/screens/DailyResults.dart';
 import 'package:redis/screens/Profile.dart';
@@ -7,7 +6,7 @@ import 'package:redis/screens/WeekResults.dart';
 import 'Questionnaire.dart';
 import 'LoginPage.dart';
 import 'Settings.dart';
-import 'package:molten_navigationbar_flutter/molten_navigationbar_flutter.dart';
+
 
 
 class HomePage extends StatefulWidget {
@@ -35,18 +34,18 @@ class _HomePageState extends State<HomePage> {
           padding: EdgeInsets.zero,
           children: [
             DrawerHeader(
-              decoration: BoxDecoration(color: Color.fromRGBO(215, 223, 255, 1)),
+              decoration: BoxDecoration(color: Color.fromRGBO(32, 12, 75, 1)),
               child: Container(child: Image.asset('assets/images/pittogramma.png'), height: 100),
             ),
             ListTile(
-              leading: Icon(Icons.logout),
-              title: Text('Logout'),
+              leading: Icon(Icons.logout, color: Color.fromRGBO(32, 12, 75, 1)),
+              title: Text('Logout', style:  TextStyle(color: Color.fromRGBO(32, 12, 75, 1),fontSize: 30)),
                   onTap: ()=> Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>LoginPage()))
              ),
             ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Settings'),
-                  onTap: () => Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>SettingsScreen()))
+              leading: Icon(Icons.settings, color: Color.fromRGBO(32, 12, 75, 1)),
+              title: Text('Settings', style:  TextStyle(color: Color.fromRGBO(32, 12, 75, 1),fontSize: 30)),
+                onTap: () => Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>SettingsScreen()))
             )
           ],
         ),
@@ -76,8 +75,6 @@ class _HomePageState extends State<HomePage> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   ElevatedButton(
-                                    
-                                    
                                     child:Column(children:[
                                     Center(child:
                                       Padding(padding: const EdgeInsets.all(3),
@@ -98,12 +95,12 @@ class _HomePageState extends State<HomePage> {
                                   ],       
                         ))),
                         Text(
-                                      "Quiz",
-                                      style: const TextStyle(
-                                        color: Color.fromRGBO(215, 223, 255, 1),
-                                        fontSize: 50,
+                            "Quiz",
+                            style: const TextStyle(
+                            color: Color.fromRGBO(215, 223, 255, 1),
+                            fontSize: 50,
                                         fontWeight: FontWeight.w600,
-                                    )),
+                        )),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
@@ -165,43 +162,14 @@ class _HomePageState extends State<HomePage> {
                                         ))),       
                               
                               Text(
-                                            "Trend",
-                                            style: const TextStyle(
-                                              color: Color.fromRGBO(215, 223, 255, 1),
-                                              fontSize: 40,
-                                              fontWeight: FontWeight.w600,
-                                          )),
+                                "Trend",
+                                style: const TextStyle(
+                                color: Color.fromRGBO(215, 223, 255, 1),
+                                fontSize: 40,
+                                fontWeight: FontWeight.w600,
+                              )),
                             ],
-                          )])])),
-          bottomNavigationBar: CurvedNavigationBar(
-          backgroundColor: Color.fromRGBO(106, 128, 237, 1),
-          color: Color.fromRGBO(86, 86, 213, 1),
-          animationDuration: Duration(milliseconds: 300),
-          onTap: (index) => {
-            if(index==0){Navigator.push(
-              context,
-              MaterialPageRoute(builder: ((context) => Questionnaire()))),},
-            if(index==1){Navigator.push(
-              context,
-              MaterialPageRoute(builder: ((context) => HomePage()))),},
-            if(index==2){Navigator.push(
-              context,
-              MaterialPageRoute(builder: ((context) => Questionnaire()))),}
-          } ,
-          items: [
-          Icon(
-            Icons.timeline,
-            color: Colors.white,
-            ),
-          Icon(
-            Icons.home,
-            color: Colors.white,
-          ),
-          Icon(
-            Icons.check_box,
-            color: Colors.white,
-          ),
-        ]),
+      )])])),
     );  
   }
 }
