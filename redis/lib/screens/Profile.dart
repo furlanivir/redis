@@ -42,17 +42,17 @@ class ProfileScreenState extends State<ProfileScreen>{
   Widget _buildName(){
     return TextFormField(
       controller: nameController,
-      cursorColor: Colors.white,
-      style: const TextStyle(color: Colors.white),
+      cursorColor: Color.fromRGBO(215, 223, 255, 1),
+      style: const TextStyle(color: Color.fromRGBO(215, 223, 255, 1)),
       decoration: InputDecoration(
         labelText: 'Name',
-        labelStyle: const TextStyle(color: Colors.white),
+        labelStyle: const TextStyle(color: Color.fromRGBO(215, 223, 255, 1)),
         focusedBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.white)
+          borderSide: BorderSide(color: Color.fromRGBO(215, 223, 255, 1))
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15.0),
-          borderSide: const BorderSide(color: Colors.white),
+          borderSide: const BorderSide(color: Color.fromRGBO(215, 223, 255, 1)),
         ),),
       validator: (value) { 
         if(value!.isEmpty){
@@ -66,17 +66,17 @@ class ProfileScreenState extends State<ProfileScreen>{
   Widget _buildSurname(){
     return TextFormField(
       controller: surnameController,
-      cursorColor: Colors.white,
-      style: const TextStyle(color: Colors.white),
+      cursorColor: Color.fromRGBO(215, 223, 255, 1),
+      style: const TextStyle(color: Color.fromRGBO(215, 223, 255, 1)),
       decoration: InputDecoration(
         labelText: 'Surname',
-        labelStyle: const TextStyle(color: Colors.white),
+        labelStyle: const TextStyle(color: Color.fromRGBO(215, 223, 255, 1)),
         focusedBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.white)
+          borderSide: BorderSide(color: Color.fromRGBO(215, 223, 255, 1))
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15.0),
-          borderSide: const BorderSide(color: Colors.white),
+          borderSide: const BorderSide(color: Color.fromRGBO(215, 223, 255, 1)),
         ),),
       validator: (value) { 
         if(value!.isEmpty){
@@ -94,17 +94,17 @@ class ProfileScreenState extends State<ProfileScreen>{
 
       return TextFormField(
         initialValue: currentEmail,
-        cursorColor: Colors.white,
-        style: const TextStyle(color: Colors.white),
+        cursorColor: Color.fromRGBO(215, 223, 255, 1),
+        style: const TextStyle(color: Color.fromRGBO(215, 223, 255, 1)),
         decoration: InputDecoration(
           labelText: 'Email Address',
-          labelStyle: const TextStyle(color: Colors.white),
+          labelStyle: const TextStyle(color: Color.fromRGBO(215, 223, 255, 1)),
           focusedBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(color: Colors.white)
+            borderSide: BorderSide(color: Color.fromRGBO(215, 223, 255, 1))
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15.0),
-            borderSide: const BorderSide(color: Colors.white),
+            borderSide: const BorderSide(color: Color.fromRGBO(215, 223, 255, 1)),
           ),
         ),
         onChanged: (value) {
@@ -125,17 +125,17 @@ class ProfileScreenState extends State<ProfileScreen>{
   Widget _buildBirthday(){
     return TextFormField(
       controller: birthdayController,
-      cursorColor: Colors.white,
-      style: const TextStyle(color: Colors.white),
+      cursorColor: Color.fromRGBO(215, 223, 255, 1),
+      style: const TextStyle(color: Color.fromRGBO(215, 223, 255, 1)),
       decoration: InputDecoration(
         labelText: 'Birthday',
-        labelStyle: const TextStyle(color: Colors.white),
+        labelStyle: const TextStyle(color: Color.fromRGBO(215, 223, 255, 1)),
         focusedBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.white)
+          borderSide: BorderSide(color: Color.fromRGBO(215, 223, 255, 1))
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15.0),
-          borderSide: const BorderSide(color: Colors.white),
+          borderSide: const BorderSide(color: Color.fromRGBO(215, 223, 255, 1)),
         ),),
       validator: (value) { 
         if(value!.isEmpty){
@@ -150,17 +150,17 @@ class ProfileScreenState extends State<ProfileScreen>{
     return TextFormField(
       initialValue: psw,
       obscureText: true,
-      cursorColor: Colors.white,
-      style: const TextStyle(color: Colors.white),
+      cursorColor: Color.fromRGBO(215, 223, 255, 1),
+      style: const TextStyle(color: Color.fromRGBO(215, 223, 255, 1)),
       decoration: InputDecoration(
         labelText: 'Password',
-        labelStyle: const TextStyle(color: Colors.white),
+        labelStyle: const TextStyle(color: Color.fromRGBO(215, 223, 255, 1)),
         focusedBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.white)
+          borderSide: BorderSide(color: Color.fromRGBO(215, 223, 255, 1))
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15.0),
-          borderSide: const BorderSide(color: Colors.white),
+          borderSide: const BorderSide(color: Color.fromRGBO(215, 223, 255, 1)),
         ),),
       validator: (value) { 
         if(value!.isEmpty){
@@ -185,10 +185,10 @@ class ProfileScreenState extends State<ProfileScreen>{
     
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(88, 86, 184, 1),
+        backgroundColor: const Color.fromRGBO(32, 12, 75, 1),
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.arrow_back_ios,size: 25,color: Colors.white)),
+          icon: const Icon(Icons.arrow_back_ios,size: 25,color: Color.fromRGBO(215, 223, 255, 1))),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -203,7 +203,7 @@ class ProfileScreenState extends State<ProfileScreen>{
       
       body: Container(
         decoration:  const BoxDecoration(
-          gradient: LinearGradient(begin: AlignmentDirectional.topEnd,colors: [Color.fromRGBO(88, 86, 184, 1),Color.fromRGBO(38, 7, 75, 1)])
+          gradient:LinearGradient(begin: AlignmentDirectional.topEnd,colors: [Color.fromRGBO(32, 12, 75, 1),Color.fromRGBO(86, 54, 157, 1)])
         ),
         child: Padding(padding: EdgeInsets.symmetric(horizontal: 10), 
         child: Form(
@@ -239,7 +239,7 @@ class ProfileScreenState extends State<ProfileScreen>{
                 };
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromRGBO(88, 86, 184, 1)
+                  backgroundColor: const Color.fromRGBO(32, 12, 75, 1)
                 ), 
                 child: const Text('Save', style: TextStyle(fontSize: 20),), 
                 ),

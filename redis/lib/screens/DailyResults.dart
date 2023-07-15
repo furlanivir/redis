@@ -111,7 +111,6 @@ class _ResultsState extends State<Results>{
   @override
   Widget build(BuildContext context){
     // dati in giuste unità 
-    /*
     final dur=todayData[0]!.duration.toInt()/(3.6*1000000); //hours
     final deep =todayData[0]!.deep!/(60); //minutes
     final rem = todayData[0]!.rem!/(60); //minutes
@@ -119,18 +118,13 @@ class _ResultsState extends State<Results>{
     final score = todayData[0]!.efficiency;
     double quiz = Provider.of<Exchange>(context, listen: false).mean_score;
     // percentuali riferimento 
-    int? refDeepMin = dur*10/100;
-    int? refDeepMax = dur*12/100;
-    int? refRemMin = dur*19/100;
-    int? refRemMax = dur*23/100;
-    int? refWakeMax = dur*9/100;
-    */
-    final dur = 8.5;
-    final deep = 0.01;
-    final rem = 1.87;
-    final wake = 0.68;
-    final score = 60;
-    double quiz = 5;
+    double? refDeepMin = dur*10/100;
+    double? refDeepMax = dur*12/100;
+    double? refRemMin = dur*19/100;
+    double? refRemMax = dur*23/100;
+    double? refWakeMax = dur*9/100;
+    
+    
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(16, 2, 63, 1),
@@ -169,7 +163,7 @@ class _ResultsState extends State<Results>{
                           TextStyle(color: Color.fromRGBO(215, 223, 255, 1),fontSize: 22,fontWeight:FontWeight.bold ),),
                           SizedBox(height: 10),
                           Container(
-                            child: (score<75 && quiz>=4) ? (bannerBB()): 
+                            child: (score!<75 && quiz>=4) ? (bannerBB()): 
                                 ((score>=75 && quiz<4) ? (bannerGG()) :  
                                 ((score<75 && quiz<4)? (bannerBG()) :
                                   (bannerGB())
