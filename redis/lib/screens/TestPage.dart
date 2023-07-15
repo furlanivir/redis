@@ -105,9 +105,9 @@ class _TestPageState extends State<TestPage> {
                   actions: [
                     Center(child:ElevatedButton(
                       onPressed: () {
-                        String day = Provider.of<Exchange>(context).today;
-                        Provider.of<Exchange>(context,listen: false).getMeanScore(5);
-                        Provider.of<DataBaseRepository>(context, listen: false).updateQuizScoreByDate(5, day);
+                        String day = Provider.of<Exchange>(context,listen: false).today;
+                        Provider.of<Exchange>(context,listen: false).getMeanScore(5.0);
+                        Provider.of<DataBaseRepository>(context, listen: false).updateQuizScoreByDate(5.0, day);
                         Navigator.pop(context);
                         Navigator.pushReplacement(
                           context,
@@ -174,9 +174,9 @@ class _TestPageState extends State<TestPage> {
             actions: [
               Center(child:ElevatedButton(
                 onPressed: () {
-                  String day = Provider.of<Exchange>(context).today;
-                  Provider.of<Exchange>(context,listen: false).getMeanScore(5);
-                  Provider.of<DataBaseRepository>(context, listen: false).updateQuizScoreByDate(5, day);
+                  String day = Provider.of<Exchange>(context, listen: false).today;
+                  Provider.of<Exchange>(context,listen: false).getMeanScore(5.0);
+                  Provider.of<DataBaseRepository>(context, listen: false).updateQuizScoreByDate(5.0, day);
                   Navigator.pop(context);
                   Navigator.pushReplacement(
                     context,
