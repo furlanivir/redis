@@ -161,36 +161,6 @@ class __WeekResultsState extends State<WeekResults> {
                 ),  //perchè di tipo int
               ),
         ])),
-                  
-        /*bottomNavigationBar: CurvedNavigationBar(
-          backgroundColor: const Color.fromRGBO(106, 128, 237, 1),
-          color: const Color.fromRGBO(86, 86, 213, 1),
-          animationDuration: const Duration(milliseconds: 300),
-          onTap: (index) => {
-            if(index==0){Navigator.push(
-              context,
-              MaterialPageRoute(builder: ((context) => const WeekResults()))),},
-            if(index==1){Navigator.push(
-              context,
-              MaterialPageRoute(builder: ((context) => HomePage()))),},
-            if(index==2){Navigator.push(
-              context,
-              MaterialPageRoute(builder: ((context) => Results()))),}
-          } ,
-          items: const [
-          Icon(
-            Icons.timeline,
-            color: Colors.white,
-            ),
-          Icon(
-            Icons.home,
-            color: Colors.white,
-          ),
-          Icon(
-            Icons.check_box,
-            color: Colors.white,
-          ),
-        ])*/
     );
   }
 

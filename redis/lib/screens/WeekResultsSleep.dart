@@ -1,4 +1,3 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'legend_widget.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -46,9 +45,9 @@ class _WeekResultsSleepState extends State<WeekResultsSleep> {
 
   BarChartGroupData generateGroupData(
     int x,
-    int? deep,
-    int? wake,
-    int? rem,
+    double? deep,
+    double? wake,
+    double? rem,
   ) {
     return BarChartGroupData(
       x: x,
@@ -79,7 +78,7 @@ class _WeekResultsSleepState extends State<WeekResultsSleep> {
   Widget bottomTitles(double value, TitleMeta meta) {
     const style = TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Color.fromRGBO(215, 223, 255, 1));
     String text;
-    switch (value.toInt()) {
+    switch (value) {
       case 0:
         text = 'Day 1';
         break;
@@ -112,7 +111,7 @@ class _WeekResultsSleepState extends State<WeekResultsSleep> {
 
   _showQuestionDialog(){
     return AlertDialog(
-      title: const Text("Press on the graph to see the percentages of your sleep stages. \n\nAccording to the guidelines for good health, they should be, compared to the total sleep duration: \n - deep: 10-12% \n - wake: 0-9% \n - rem: 19-27%", 
+      title: const Text("According to the guidelines for good health, they should be, compared to the total sleep duration: \n - deep: 10-12% \n - wake: 0-9% \n - rem: 19-27%", 
         style: TextStyle(
           color: Color.fromRGBO(32, 12, 75, 1),
           fontSize: 25,
@@ -122,10 +121,23 @@ class _WeekResultsSleepState extends State<WeekResultsSleep> {
 
   @override
   Widget build(BuildContext context) {
+    List<double?> weekDeep =  [0, 0, 0, 0, 0, 0, 0];
+    List<double?> weekRem = [0, 0, 0, 0, 0, 0, 0];
+    List<double?> weekWake = [0, 0, 0, 0, 0, 0, 0];
     int n = deep.length;
-    //print ('lunghezza :$n');
-    return 
-    Scaffold(
+    if (n>=7) {for (int i = 0; i<7; i++){
+      if(deep[n-1-i]==0){
+        weekDeep[i] = 0.0;
+        weekRem[i] = 0.0;
+        weekWake[i] = 0.0;
+      }else{
+        weekDeep[i] = double.parse(((deep[n-1-i]!*100)/(dur[n-1-i]!/60000)).toStringAsFixed(5));
+        weekRem[i] = double.parse(((rem[n-1-i]!*100)/(dur[n-1-i]!/60000)).toStringAsFixed(5));
+        weekWake[i] = double.parse(((wake[n-1-i]!*100)/(dur[n-1-i]!/60000)).toStringAsFixed(5));
+      }
+      }
+      return 
+      Scaffold(
       appBar:AppBar(
         backgroundColor:  Color.fromRGBO(32, 12, 75, 1),
         leading: IconButton(
@@ -180,7 +192,7 @@ class _WeekResultsSleepState extends State<WeekResultsSleep> {
               
               margin: const EdgeInsets.symmetric(horizontal: 10),
               padding: const EdgeInsets.all(17),
-              child: n>=7?
+              child: 
                 Padding(
                   padding: const EdgeInsets.all(24),
                     child: Column(
@@ -214,18 +226,19 @@ class _WeekResultsSleepState extends State<WeekResultsSleep> {
                                   ),
                                 ),
                               ),
-                              barTouchData: BarTouchData(enabled: true, longPressDuration: const Duration(milliseconds: 100),),
+                              barTouchData: BarTouchData(enabled: true),
                               borderData: FlBorderData(show: false),
-                              gridData: const FlGridData(show: false),
+                              gridData: const FlGridData(show: true),
+                              
                               barGroups: [
                                 
-                                generateGroupData(0, ((deep[n-7]!*100)!/(dur[n-7]!/60000)).toInt(), ((wake[n-7]!*100)!/(dur[n-7]!/60000)).toInt(), ((rem[n-7]!*100)!/(dur[n-7]!/60000)).toInt()),
-                                generateGroupData(1, ((deep[n-6]!*100)!/(dur[n-6]!/60000)).toInt(), ((wake[n-6]!*100)!/(dur[n-6]!/60000)).toInt(), ((rem[n-6]!*100)!/(dur[n-6]!/60000)).toInt()),
-                                generateGroupData(2, ((deep[n-5]!*100)!/(dur[n-5]!/60000)).toInt(), ((wake[n-5]!*100)!/(dur[n-5]!/60000)).toInt(), ((rem[n-5]!*100)!/(dur[n-5]!/60000)).toInt()),
-                                generateGroupData(3, ((deep[n-4]!*100)!/(dur[n-4]!/60000)).toInt(), ((wake[n-4]!*100)!/(dur[n-4]!/60000)).toInt(), ((rem[n-4]!*100)!/(dur[n-4]!/60000)).toInt()),
-                                generateGroupData(4, ((deep[n-3]!*100)!/(dur[n-3]!/60000)).toInt(), ((wake[n-3]!*100)!/(dur[n-3]!/60000)).toInt(), ((rem[n-3]!*100)!/(dur[n-3]!/60000)).toInt()),
-                                generateGroupData(5, ((deep[n-2]!*100)!/(dur[n-2]!/60000)).toInt(), ((wake[n-2]!*100)!/(dur[n-2]!/60000)).toInt(), ((rem[n-2]!*100)!/(dur[n-2]!/60000)).toInt()),
-                                generateGroupData(6, ((deep[n-1]!*100)!/(dur[n-1]!/60000)).toInt(), ((wake[n-1]!*100)!/(dur[n-1]!/60000)).toInt(), ((rem[n-1]!*100)!/(dur[n-1]!/60000)).toInt()),
+                                generateGroupData(0, weekDeep[6], weekWake[6], weekRem[6]),
+                                generateGroupData(1, weekDeep[5], weekWake[5], weekRem[5]),
+                                generateGroupData(2, weekDeep[4], weekWake[4], weekRem[4]),
+                                generateGroupData(3, weekDeep[3], weekWake[3], weekRem[3]),
+                                generateGroupData(4, weekDeep[2], weekWake[2], weekRem[2]),
+                                generateGroupData(5, weekDeep[1], weekWake[1], weekRem[1]),
+                                generateGroupData(6, weekDeep[0], weekWake[0], weekRem[0]),
                             
                               ],
                               maxY: 100,
@@ -235,13 +248,7 @@ class _WeekResultsSleepState extends State<WeekResultsSleep> {
                         ),
                       ],
                     ),
-            ):
-             Text('There is still too little data, check again later. \n\nIn the meantime, hold on, you will achieve the desired results!',
-             style: TextStyle(
-                    fontStyle: FontStyle.italic,
-                    color: Color.fromRGBO(215, 223, 255, 1),
-                    fontSize: 27,
-                    fontWeight: FontWeight.w600)),
+            )
             ),
                     
             const SizedBox(height: 50),
@@ -267,36 +274,71 @@ class _WeekResultsSleepState extends State<WeekResultsSleep> {
                   MaterialPageRoute(
                     builder: (context) =>  HomePage()));
             })),
-        ])),
+      ])));}
+      else
+      {return 
+      Scaffold(
+      appBar:AppBar(
+        backgroundColor:  Color.fromRGBO(32, 12, 75, 1),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.arrow_back_ios,
+            size: 20,
+            color: Color.fromRGBO(215, 223, 255, 1),
+          ),
+        ),
+        actions: [IconButton(onPressed: () => {showDialog(context: context, builder: (_) => _showQuestionDialog())}, icon: const Icon(Icons.question_mark, color:Color.fromRGBO(215, 223, 255, 1)))],
+        title: const Text('WeeklyResults',style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,color: Color.fromRGBO(215, 223, 255, 1),),),
+      ),
+      
+      body: 
+        Container(
+          width: double.infinity,
+          height: MediaQuery.of(context).size.height,
+          decoration:  const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/sfondo.jpg'),
+            fit: BoxFit.cover,
+            opacity: 0.9,
+          )),
+       
+          child: 
+          Column(children: [
+            Container(
+              alignment: Alignment.center,
+              width: double.infinity,
+              margin: const EdgeInsets.symmetric(vertical: 15),
+              padding: const EdgeInsets.all(30),
+              child:const Padding( padding: EdgeInsets.symmetric(),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Center(child: Text(
+                      textAlign: TextAlign.center,
+                      "How did you sleep this week?",
+                      style: TextStyle(
+                        color: Color.fromRGBO(215, 223, 255, 1),
+                        fontSize: 45,
+                        fontWeight: FontWeight.w600,
+                )))]),
+            )),
+              
+            const SizedBox(height: 5),
+            
+            Container(
+              
+              margin: const EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.all(17),
+              child: 
+             Text('There is still too little data, check again later. \n\nIn the meantime, hold on, you will achieve the desired results!',
+             style: TextStyle(
+                    fontStyle: FontStyle.italic,
+                    color: Color.fromRGBO(215, 223, 255, 1),
+                    fontSize: 27,
+                    fontWeight: FontWeight.w600)))])));}
+}}
 
-        /*bottomNavigationBar: CurvedNavigationBar(
-          backgroundColor: const Color.fromRGBO(106, 128, 237, 1),
-          color: const Color.fromRGBO(86, 86, 213, 1),
-          animationDuration: const Duration(milliseconds: 300),
-          onTap: (index) => {
-            if(index==0){Navigator.push(
-              context,
-              MaterialPageRoute(builder: ((context) => const WeekResults()))),},
-            if(index==1){Navigator.push(
-              context,
-              MaterialPageRoute(builder: ((context) => HomePage()))),},
-            if(index==2){Navigator.push(
-              context,
-              MaterialPageRoute(builder: ((context) => Results()))),}
-          } ,
-          items: const [
-          Icon(
-            Icons.timeline,
-            color: Colors.white,
-            ),
-          Icon(
-            Icons.home,
-            color: Colors.white,
-          ),
-          Icon(
-            Icons.check_box,
-            color: Colors.white,
-          ),
-    ])*/);
-  }
-}
+        
