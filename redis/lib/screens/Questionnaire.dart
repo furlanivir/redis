@@ -118,7 +118,7 @@ class _QuestionnaireState extends State<Questionnaire> {
               style: TextStyle(
                 fontSize: 45,
                 fontWeight: FontWeight.w600)
-              ),  //perchè di tipo int
+              ),  
         style: ElevatedButton.styleFrom(
           shape: const StadiumBorder(),
           primary: isSelected ? Color.fromRGBO(32, 12, 75, 1) : Color.fromRGBO(215, 223, 255, 1),
@@ -207,7 +207,7 @@ class _QuestionnaireState extends State<Questionnaire> {
       title: Text("Nothing: $score0 times; \nVery few: $score1 times; \nFew: $score2 times; \nQuite: $score3 times; \nA lot: $score4 times; \nToo much: $score5 times; \n", 
           style: TextStyle(
               color: Color.fromRGBO(32, 12, 75, 1),
-              fontSize: 18,
+              fontSize: 25,
               fontWeight: FontWeight.w600,
       )),
       content: ElevatedButton(
@@ -232,8 +232,8 @@ class _QuestionnaireState extends State<Questionnaire> {
           });
           Navigator.pop(context);
           Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) => HomePage()),
-                        );
+            MaterialPageRoute(builder: (context) => HomePage()),
+          );
           
       },),
     );

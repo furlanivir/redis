@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:redis/provider.dart';
 import 'package:redis/screens/LoginPage.dart';
 import 'package:redis/screens/Profile.dart';
-import 'package:redis/screens/SignupPage.dart';
 import 'SettingsCommunity.dart';
 import 'SettingsFAQ.dart';
 import 'package:provider/provider.dart';

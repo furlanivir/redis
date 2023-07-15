@@ -40,7 +40,6 @@ class _SignupPageState extends State<SignupPage> {
           backgroundColor: Colors.transparent,
         appBar: AppBar(
         elevation: 0,
-        //brightness: Brightness.light,
         backgroundColor: Colors.transparent,
         leading: IconButton(
           onPressed: () {

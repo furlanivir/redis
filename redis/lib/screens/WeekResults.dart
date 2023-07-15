@@ -1,9 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:redis/screens/WeekResultsSleep.dart';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:redis/screens/HomePage.dart';
-import 'package:redis/screens/DailyResults.dart';
 import 'package:redis/provider.dart';
 import 'package:provider/provider.dart';
 import '../repository/DataBaseRepository.dart';

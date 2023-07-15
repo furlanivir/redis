@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:redis/provider.dart';
 import 'dart:async';
 import 'dart:math';
-
 import 'Questionnaire.dart';
 import 'HomePage.dart';
 import 'package:provider/provider.dart';

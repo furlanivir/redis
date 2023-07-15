@@ -3,7 +3,6 @@ import 'package:redis/modules/methods.dart';
 import 'package:redis/provider.dart';
 import 'package:redis/screens/fadeanimation.dart';
 import 'package:redis/screens/SignupPage.dart';
-import 'package:redis/screens/HomePage.dart';
 import 'package:provider/provider.dart';
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
@@ -91,10 +90,8 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      //backgroundColor: Color.fromRGBO(215, 223, 255, 1),
       appBar: AppBar(
         elevation: 0,
-        //brightness: Brightness.light,
         backgroundColor: Color.fromRGBO(215, 223, 255, 1),
         leading: IconButton(
           onPressed: () {

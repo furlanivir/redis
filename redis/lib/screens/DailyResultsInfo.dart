@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-//import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 //A page with more information about the sleep session, with a check on the sleep stages range 
 class ResultsInfo extends StatefulWidget {
@@ -115,37 +114,6 @@ class _ResultsInfoState extends State<ResultsInfo> {
               )
             ],)
           ),
-          /*
-          bottomNavigationBar: CurvedNavigationBar(
-            backgroundColor: const Color.fromRGBO(106, 128, 237, 1),
-            color: const Color.fromRGBO(86, 86, 213, 1),
-            animationDuration: const Duration(milliseconds: 300),
-            onTap: (index) => {}/*
-              if (index==0){Navigator.push(
-                context,
-                MaterialPageRoute(builder: ((context) => const WeekResults()))),},
-              if(index==1){Navigator.push(
-                context,
-                MaterialPageRoute(builder: ((context) => HomePage()))),},
-              if(index==2){Navigator.push(
-                context,
-                MaterialPageRoute(builder: ((context) => Results()))),}
-            } */,
-            
-            items: const [
-            Icon(
-              Icons.timeline,
-              color: Colors.white,
-              ),
-            Icon(
-              Icons.home,
-              color: Colors.white,
-            ),
-            Icon(
-              Icons.check_box,
-              color: Colors.white,
-            ),
-      ])*/
     );
   }
 }

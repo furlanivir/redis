@@ -1,9 +1,7 @@
 import 'legend_widget.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:redis/screens/WeekResults.dart';
 import 'package:redis/screens/HomePage.dart';
-import 'package:redis/screens/DailyResults.dart';
 import 'package:redis/database/entities/SleepData.dart';
 import 'package:redis/provider.dart';
 import 'package:provider/provider.dart';
@@ -338,7 +336,34 @@ class _WeekResultsSleepState extends State<WeekResultsSleep> {
                     fontStyle: FontStyle.italic,
                     color: Color.fromRGBO(215, 223, 255, 1),
                     fontSize: 27,
-                    fontWeight: FontWeight.w600)))])));}
+                    fontWeight: FontWeight.w600))),
+
+            const SizedBox(height: 50),
+
+            Container(
+              width: 300,
+              height: 48,
+              child: ElevatedButton(
+              child: const Text(
+                "Home Page", 
+                style: TextStyle(
+                  fontSize: 35,
+                  fontWeight: FontWeight.w600)
+              ),
+              style: ElevatedButton.styleFrom(
+                shape: const StadiumBorder(),
+                primary: const Color.fromARGB(255, 93, 129, 245),
+                onPrimary: Color.fromRGBO(215, 223, 255, 1),
+              ),
+              onPressed: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>  HomePage()));
+            }))
+          ])
+                    
+    ));}
 }}
 
         

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'Settings.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 

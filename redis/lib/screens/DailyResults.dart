@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:redis/repository/DataBaseRepository.dart';
 import 'DailyResultsInfo.dart';
 import 'DailyGraph.dart';
-//import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 //A Page to visualize the daily results of the sleep session, with a check on the efficiency and the quiz score 
 class Results extends StatefulWidget{

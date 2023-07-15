@@ -1,7 +1,4 @@
-import 'dart:ffi';
 import 'package:flutter/material.dart';
-import 'Settings.dart';
-import 'LoginPage.dart';
 
 
 // Screen with some Q&A about sleep and addictions 

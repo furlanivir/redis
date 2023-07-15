@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:redis/provider.dart';
 import 'package:provider/provider.dart';
 import 'package:redis/database/database.dart';
-import 'package:redis/modules/methods.dart';
 import 'package:redis/repository/DataBaseRepository.dart';
 import 'package:redis/screens/SplashScreen.dart';
 

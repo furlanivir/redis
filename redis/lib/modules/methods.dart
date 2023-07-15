@@ -4,7 +4,6 @@ import 'package:redis/database/database.dart';
 import 'package:redis/database/entities/SleepData.dart';
 import 'package:redis/provider.dart';
 import 'package:redis/screens/HomePage.dart';
-import 'package:redis/screens/SplashScreen.dart';
 import 'package:redis/utils/impact.dart';
 import 'package:redis/modules/obtainData.dart';
 import 'package:flutter/material.dart';

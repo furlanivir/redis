@@ -3,7 +3,6 @@ import 'package:redis/screens/DailyResults.dart';
 import 'package:redis/screens/Profile.dart';
 import 'package:redis/screens/TestPage.dart';
 import 'package:redis/screens/WeekResults.dart';
-import 'Questionnaire.dart';
 import 'LoginPage.dart';
 import 'Settings.dart';
 
@@ -66,7 +65,6 @@ class _HomePageState extends State<HomePage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
-                          //: Alignment.center,
                           width: double.infinity,
                           padding: const EdgeInsets.all(10),
                           child:Padding( padding: const EdgeInsets.symmetric(),
@@ -80,7 +78,6 @@ class _HomePageState extends State<HomePage> {
                                       Padding(padding: const EdgeInsets.all(3),
                                       child: Image.asset('assets/images/puzzle.png'))
                                       ),
-                                    
                                     ]),
                                      style: ElevatedButton.styleFrom(
                                       side: BorderSide(width: 6, color: Color.fromRGBO(215, 223, 255, 1)),
@@ -116,7 +113,6 @@ class _HomePageState extends State<HomePage> {
                                             Padding(padding: const EdgeInsets.all(7),
                                             child: Image.asset('assets/images/calendario1.png'))
                                             ),
-                                          
                                           ]),
                                           style: ElevatedButton.styleFrom(
                                             side: BorderSide(width: 3, color: Color.fromRGBO(215, 223, 255, 1)),
@@ -160,7 +156,6 @@ class _HomePageState extends State<HomePage> {
                                               MaterialPageRoute(builder: ((context) => WeekResults())));
                                           },
                                         ))),       
-                              
                               Text(
                                 "Trend",
                                 style: const TextStyle(
