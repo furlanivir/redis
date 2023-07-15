@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'Settings.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+
 // A screen with some informations about alcholism and quit smoking
 
 class CommunityScreen extends StatelessWidget{
@@ -25,10 +27,10 @@ _launchURL_help() async {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(88, 86, 184, 1),
+        backgroundColor: const Color.fromRGBO(32, 12, 75, 1),
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.arrow_back_ios,size: 25,color: Colors.white)),
+          icon: const Icon(Icons.arrow_back_ios,size: 25,color: Color.fromRGBO(215, 223, 255, 1,))),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -44,7 +46,7 @@ _launchURL_help() async {
         width: double.infinity,
         height:  MediaQuery.of(context).size.height,
         decoration: const BoxDecoration(
-          gradient: LinearGradient(begin: AlignmentDirectional.topEnd,colors: [Color.fromRGBO(88, 86, 184, 1),Color.fromRGBO(38, 7, 75, 1)])
+          gradient:LinearGradient(begin: AlignmentDirectional.topEnd,colors: [Color.fromRGBO(32, 12, 75, 1),Color.fromRGBO(86, 54, 157, 1)])
         ),
         child: SafeArea(
           child: Padding(padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40), child:
@@ -52,10 +54,10 @@ _launchURL_help() async {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text('ReDIS Community',style: TextStyle(color: Colors.white,fontSize: 30,fontWeight: FontWeight.bold),),
+              const Text('ReDIS Community',style: TextStyle(color: Color.fromRGBO(215, 223, 255, 1,),fontSize: 30,fontWeight: FontWeight.bold),),
               const SizedBox(height: 50,),
               const Text("ReDIS is an app designed to help you monitor your sleep and the benefits of it when you don't give in to your addictions. If the stimulus to improve your rest is not enough, we suggest you turn to more concrete help:",
-              style: TextStyle(color: Colors.white,fontSize: 20), textAlign: TextAlign.justify,),
+              style: TextStyle(color: Color.fromRGBO(215, 223, 255, 1,),fontSize: 20), textAlign: TextAlign.justify,),
               const SizedBox(height: 50,),
               InkWell(onTap: _launchURL_AA,
               child: 
@@ -63,9 +65,9 @@ _launchURL_help() async {
                 height: 50,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadiusDirectional.circular(10),
-                  color: const Color.fromRGBO(88, 86, 184, 1)),
+                  color: const Color.fromRGBO(32, 12, 75, 1)),
                 child: const Padding(padding: EdgeInsets.symmetric(horizontal: 10,vertical: 12),
-                child: Text('Find AA meeting',style: TextStyle(color: Colors.white,fontSize: 20),))
+                child: Text('Find AA meeting',style: TextStyle(color: Color.fromRGBO(215, 223, 255, 1,),fontSize: 20),))
               )
               ),
               const SizedBox(height: 50,),
@@ -75,9 +77,9 @@ _launchURL_help() async {
                 height: 50,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadiusDirectional.circular(10),
-                  color: const Color.fromRGBO(88, 86, 184, 1)),
+                  color: const Color.fromRGBO(32, 12, 75, 1)),
                 child: const Padding(padding: EdgeInsets.symmetric(horizontal: 10,vertical: 12),
-                child: Text('I want to quit smoking',style: TextStyle(color: Colors.white,fontSize: 20),))
+                child: Text('I want to quit smoking',style: TextStyle(color: Color.fromRGBO(215, 223, 255, 1,),fontSize: 20),))
               )
               ) 
             ],
@@ -89,5 +91,4 @@ _launchURL_help() async {
   }
 
 }
-
 

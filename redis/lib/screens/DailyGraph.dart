@@ -2,16 +2,26 @@ import 'dart:math' as math;
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
+// class to create the graph for daily results
 class BarChartSample extends StatefulWidget {
-  BarChartSample({super.key});
+  final double? dur;
+  final double? deep;
+  final double? rem;
+  final double? wake;
+  final int? score;
+  BarChartSample(this.dur,this.deep,this.rem,this.wake,this.score);
+  
+  late double? percDeep = dur!*12/100;
+  late double? percRem = dur!*27/100;
+  late double? percWake = dur!*9/100;
 
   final shadowColor = const Color.fromARGB(255, 167, 166, 166);
-  final dataList = [
-    const _BarData(Color.fromRGBO(142, 156, 223,1), 7, 8,'Time'),
-    const _BarData(Color.fromRGBO(146, 43, 220, 1), 12, 8,'Deep'),
-    const _BarData(Color.fromARGB(255, 205, 84, 227), 10, 11,'REM'),
-    const _BarData(Color.fromARGB(255, 172, 136, 243), 2.5, 5,'Wake'),
-    const _BarData(Color.fromRGBO(215, 223, 255,1), 2, 2.5,'Score'),
+  late List<_BarData> dataList = [
+    _BarData(const Color.fromRGBO(142, 156, 223,1), dur, 8,'Time'),
+    _BarData(Color.fromRGBO(97, 36, 141, 1), deep, percDeep,'Deep'),
+    _BarData(Color.fromARGB(255, 205, 84, 227), rem, percRem,'REM'),
+    _BarData(Color.fromARGB(255, 172, 136, 243), wake, percWake,'Wake'),
+    
   ];
 
   @override
@@ -22,20 +32,20 @@ class _BarChartSampleState extends State<BarChartSample> {
   BarChartGroupData generateBarGroup(
     int x,
     Color color,
-    double value,
-    double shadowValue,
+    double? value,
+    double? shadowValue,
     String what
   ) {
     return BarChartGroupData(
       x: x,
       barRods: [
         BarChartRodData(
-          toY: value,
+          toY: value!,
           color: color,
           width: 14,
         ),
         BarChartRodData(
-          toY: shadowValue,
+          toY: shadowValue!,
           color: widget.shadowColor,
           width: 6,
         ),
@@ -120,7 +130,7 @@ class _BarChartSampleState extends State<BarChartSample> {
                 data.what
               );
             }).toList(),
-            maxY: 15,
+            maxY: widget.dur,
             barTouchData: BarTouchData(
               enabled: true,
               handleBuiltInTouches: false,
@@ -173,8 +183,8 @@ class _BarChartSampleState extends State<BarChartSample> {
 class _BarData {
   const _BarData(this.color, this.value, this.shadowValue, this.what);
   final Color color;
-  final double value;
-  final double shadowValue;
+  final double? value;
+  final double? shadowValue;
   final String what;
 }
 
@@ -217,7 +227,7 @@ class _IconWidgetState extends AnimatedWidgetBaseState<_IconWidget> {
       _rotationTween,
       widget.isSelected ? 1.0 : 0.0,
       (dynamic value) => Tween<double>(
-        begin: value as double,
+        begin: value ,
         end: widget.isSelected ? 1.0 : 0.0,
       ),
     ) as Tween<double>?;
