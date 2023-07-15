@@ -40,16 +40,28 @@ class __WeekResultsState extends State<WeekResults> {
   ];
 
   
-
-  @override
+@override
   Widget build(BuildContext context) {
     int n = eff.length;
     return 
     Scaffold(
       appBar:AppBar(
-        backgroundColor: const Color.fromRGBO(63, 4, 213, 1),
-        actions: [IconButton(onPressed: () => {showDialog(context: context, builder: (_) => _showQuestionDialog())}, icon: const Icon(Icons.question_mark))],
-        title: const Text('WeeklyResults',style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,color: Color.fromARGB(255, 190, 161, 234),),),
+        backgroundColor:  Color.fromRGBO(32, 12, 75, 1),
+        actions: [IconButton(onPressed: () => {showDialog(context: context, builder: (_) => _showQuestionDialog())}, icon: const Icon(Icons.question_mark, color: Color.fromRGBO(215, 223, 255, 1)))],
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(
+              context,
+              MaterialPageRoute(
+              builder: (context) =>  HomePage()));
+          },
+          icon: Icon(
+            Icons.arrow_back_ios,
+            size: 20,
+            color: Color.fromRGBO(215, 223, 255, 1),
+          ),
+        ),
+        title: const Text('WeeklyResults',style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,color: Color.fromRGBO(215, 223, 255, 1),),),
       ),
 
       body: 
@@ -103,11 +115,11 @@ class __WeekResultsState extends State<WeekResults> {
                     ],
               ):
               Text('There is still too little data, check again later. \n\nIn the meantime, hold on, you will achieve the desired results!',
-             style: TextStyle(
-                    fontStyle: FontStyle.italic,
-                    color: Colors.white,
-                    fontSize: 27,
-                    fontWeight: FontWeight.w600)),
+                style: TextStyle(
+                        fontStyle: FontStyle.italic,
+                        color: Color.fromRGBO(215, 223, 255, 1),
+                        fontSize: 27,
+                        fontWeight: FontWeight.w600)),
               ),
               
               const SizedBox(height: 70),
@@ -125,7 +137,7 @@ class __WeekResultsState extends State<WeekResults> {
                   style: ElevatedButton.styleFrom(
                     shape: const StadiumBorder(),
                     primary: const Color.fromARGB(255, 93, 129, 245),
-                    onPrimary: Colors.white,
+                    onPrimary: Color.fromRGBO(215, 223, 255, 1),
                   ),
                   onPressed: (){
                     Navigator.push(
@@ -143,14 +155,14 @@ class __WeekResultsState extends State<WeekResults> {
                   "You are strong! Don't give up!", 
                   style: TextStyle(
                     fontStyle: FontStyle.italic,
-                    color: Colors.white,
+                    color: Color.fromRGBO(215, 223, 255, 1),
                     fontSize: 27,
                     fontWeight: FontWeight.w600)
                 ),  //perchè di tipo int
               ),
         ])),
                   
-        bottomNavigationBar: CurvedNavigationBar(
+        /*bottomNavigationBar: CurvedNavigationBar(
           backgroundColor: const Color.fromRGBO(106, 128, 237, 1),
           color: const Color.fromRGBO(86, 86, 213, 1),
           animationDuration: const Duration(milliseconds: 300),
@@ -178,12 +190,12 @@ class __WeekResultsState extends State<WeekResults> {
             Icons.check_box,
             color: Colors.white,
           ),
-        ])
+        ])*/
     );
   }
 
   Widget bottomTitles(double value, TitleMeta meta) {
-    const style = TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white);
+    const style = TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Color.fromRGBO(215, 223, 255, 1));
     String text;
     switch (value.toInt()) {
       case 0:
@@ -218,7 +230,7 @@ class __WeekResultsState extends State<WeekResults> {
 
   Widget leftTitleWidgets(double value, TitleMeta meta) {
     const style = TextStyle(
-      color: Colors.white,
+      color: Color.fromRGBO(215, 223, 255, 1),
       fontWeight: FontWeight.bold,
       fontSize: 15,
     );
@@ -338,19 +350,10 @@ class __WeekResultsState extends State<WeekResults> {
     return AlertDialog(
       title: const Text("In this graph you can see the trend of the results of the last week, obtained by comparing your answers to the daily test with the sleep data. \n\n\n 5 = GREAT JOB! \n 4 = KEEP IT UP! \n 3 = YOU ARE ON THE RIGHT TRACK \n 2 = YOU CAN IMPROVE \n 1 = THIS IS NOT GOOD", 
         style: TextStyle(
-          color: Color.fromRGBO(63, 4, 213, 1),
-          fontSize: 20,
+          color: Color.fromRGBO(32, 12, 75, 1),
+          fontSize: 25,
           fontWeight: FontWeight.w600,
       )),
-      content: ElevatedButton(
-        child: const Text("Back"), 
-        style: ElevatedButton.styleFrom(
-          primary: Color.fromARGB(255, 93, 129, 245),
-          onPrimary: Colors.white,
-        ),
-        onPressed: (){
-          Navigator.pop(context);
-          })
     );
   }
 }

@@ -22,6 +22,7 @@ class _WeekResultsSleepState extends State<WeekResultsSleep> {
   List<int?> deep = [];
   List<int?> rem = [];
   List<int?> wake = [];
+  List<double?> dur = [];
 
   @override
   void initState() {
@@ -33,6 +34,7 @@ class _WeekResultsSleepState extends State<WeekResultsSleep> {
     deep = await Provider.of<DataBaseRepository>(context, listen: false).findAllDeep();
     rem = await Provider.of<DataBaseRepository>(context, listen: false).findAllRem();
     wake = await Provider.of<DataBaseRepository>(context, listen: false).findAllWake();
+    dur = await Provider.of<DataBaseRepository>(context, listen: false).findAllDuration();
     setState(() {}); // Trigger a rebuild after loading the data
   }
 
@@ -75,7 +77,7 @@ class _WeekResultsSleepState extends State<WeekResultsSleep> {
   }
 
   Widget bottomTitles(double value, TitleMeta meta) {
-    const style = TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white);
+    const style = TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Color.fromRGBO(215, 223, 255, 1));
     String text;
     switch (value.toInt()) {
       case 0:
@@ -108,16 +110,36 @@ class _WeekResultsSleepState extends State<WeekResultsSleep> {
     );
   }
 
+  _showQuestionDialog(){
+    return AlertDialog(
+      title: const Text("Press on the graph to see the percentages of your sleep stages. \n\nAccording to the guidelines for good health, they should be, compared to the total sleep duration: \n - deep: 10-12% \n - wake: 0-9% \n - rem: 19-27%", 
+        style: TextStyle(
+          color: Color.fromRGBO(32, 12, 75, 1),
+          fontSize: 25,
+          fontWeight: FontWeight.w600,
+      ))
+    );}
+
   @override
   Widget build(BuildContext context) {
     int n = deep.length;
-    print ('lunghezza :$n');
+    //print ('lunghezza :$n');
     return 
     Scaffold(
       appBar:AppBar(
-        backgroundColor: const Color.fromRGBO(63, 4, 213, 1),
-          
-        title: const Text('WeeklyResults',style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,color: Color.fromARGB(255, 190, 161, 234),),),
+        backgroundColor:  Color.fromRGBO(32, 12, 75, 1),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.arrow_back_ios,
+            size: 20,
+            color: Color.fromRGBO(215, 223, 255, 1),
+          ),
+        ),
+        actions: [IconButton(onPressed: () => {showDialog(context: context, builder: (_) => _showQuestionDialog())}, icon: const Icon(Icons.question_mark, color:Color.fromRGBO(215, 223, 255, 1)))],
+        title: const Text('WeeklyResults',style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,color: Color.fromRGBO(215, 223, 255, 1),),),
       ),
       
       body: 
@@ -146,13 +168,13 @@ class _WeekResultsSleepState extends State<WeekResultsSleep> {
                       textAlign: TextAlign.center,
                       "How did you sleep this week?",
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Color.fromRGBO(215, 223, 255, 1),
                         fontSize: 45,
                         fontWeight: FontWeight.w600,
                 )))]),
             )),
               
-            const SizedBox(height: 20),
+            const SizedBox(height: 5),
             
             Container(
               
@@ -165,6 +187,7 @@ class _WeekResultsSleepState extends State<WeekResultsSleep> {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        
                         const SizedBox(height: 8),
                         LegendsListWidget(
                           legends: [
@@ -173,7 +196,7 @@ class _WeekResultsSleepState extends State<WeekResultsSleep> {
                             Legend('Rem', remColor),
                           ],
                         ),
-                        const SizedBox(height: 14),
+                        const SizedBox(height:60),
                         AspectRatio(
                           aspectRatio: 2,
                           child: BarChart(
@@ -191,21 +214,22 @@ class _WeekResultsSleepState extends State<WeekResultsSleep> {
                                   ),
                                 ),
                               ),
-                              barTouchData: BarTouchData(enabled: false),
+                              barTouchData: BarTouchData(enabled: true, longPressDuration: const Duration(milliseconds: 100),),
                               borderData: FlBorderData(show: false),
                               gridData: const FlGridData(show: false),
                               barGroups: [
                                 
-                                generateGroupData(0, deep[n-7], wake[n-7], rem[n-7]),
-                                generateGroupData(1, deep[n-6], wake[n-6], rem[n-6]),
-                                generateGroupData(2, deep[n-5], wake[n-5], rem[n-5]),
-                                generateGroupData(3, deep[n-4], wake[n-4], rem[n-4]),
-                                generateGroupData(4, deep[n-3], wake[n-3], rem[n-3]),
-                                generateGroupData(5, deep[n-2], wake[n-2], rem[n-2]),
-                                generateGroupData(6, deep[n-1], wake[n-1], rem[n-1]),
+                                generateGroupData(0, ((deep[n-7]!*100)!/(dur[n-7]!/60000)).toInt(), ((wake[n-7]!*100)!/(dur[n-7]!/60000)).toInt(), ((rem[n-7]!*100)!/(dur[n-7]!/60000)).toInt()),
+                                generateGroupData(1, ((deep[n-6]!*100)!/(dur[n-6]!/60000)).toInt(), ((wake[n-6]!*100)!/(dur[n-6]!/60000)).toInt(), ((rem[n-6]!*100)!/(dur[n-6]!/60000)).toInt()),
+                                generateGroupData(2, ((deep[n-5]!*100)!/(dur[n-5]!/60000)).toInt(), ((wake[n-5]!*100)!/(dur[n-5]!/60000)).toInt(), ((rem[n-5]!*100)!/(dur[n-5]!/60000)).toInt()),
+                                generateGroupData(3, ((deep[n-4]!*100)!/(dur[n-4]!/60000)).toInt(), ((wake[n-4]!*100)!/(dur[n-4]!/60000)).toInt(), ((rem[n-4]!*100)!/(dur[n-4]!/60000)).toInt()),
+                                generateGroupData(4, ((deep[n-3]!*100)!/(dur[n-3]!/60000)).toInt(), ((wake[n-3]!*100)!/(dur[n-3]!/60000)).toInt(), ((rem[n-3]!*100)!/(dur[n-3]!/60000)).toInt()),
+                                generateGroupData(5, ((deep[n-2]!*100)!/(dur[n-2]!/60000)).toInt(), ((wake[n-2]!*100)!/(dur[n-2]!/60000)).toInt(), ((rem[n-2]!*100)!/(dur[n-2]!/60000)).toInt()),
+                                generateGroupData(6, ((deep[n-1]!*100)!/(dur[n-1]!/60000)).toInt(), ((wake[n-1]!*100)!/(dur[n-1]!/60000)).toInt(), ((rem[n-1]!*100)!/(dur[n-1]!/60000)).toInt()),
                             
                               ],
-                              maxY: 300,
+                              maxY: 100,
+                              
                             ),
                           ),
                         ),
@@ -215,19 +239,19 @@ class _WeekResultsSleepState extends State<WeekResultsSleep> {
              Text('There is still too little data, check again later. \n\nIn the meantime, hold on, you will achieve the desired results!',
              style: TextStyle(
                     fontStyle: FontStyle.italic,
-                    color: Colors.white,
+                    color: Color.fromRGBO(215, 223, 255, 1),
                     fontSize: 27,
                     fontWeight: FontWeight.w600)),
             ),
                     
-            const SizedBox(height: 70),
+            const SizedBox(height: 50),
 
             Container(
               width: 300,
               height: 48,
               child: ElevatedButton(
               child: const Text(
-                "Week Results", 
+                "Home Page", 
                 style: TextStyle(
                   fontSize: 35,
                   fontWeight: FontWeight.w600)
@@ -235,17 +259,17 @@ class _WeekResultsSleepState extends State<WeekResultsSleep> {
               style: ElevatedButton.styleFrom(
                 shape: const StadiumBorder(),
                 primary: const Color.fromARGB(255, 93, 129, 245),
-                onPrimary: Colors.white,
+                onPrimary: Color.fromRGBO(215, 223, 255, 1),
               ),
               onPressed: (){
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const WeekResults()));
+                    builder: (context) =>  HomePage()));
             })),
         ])),
 
-        bottomNavigationBar: CurvedNavigationBar(
+        /*bottomNavigationBar: CurvedNavigationBar(
           backgroundColor: const Color.fromRGBO(106, 128, 237, 1),
           color: const Color.fromRGBO(86, 86, 213, 1),
           animationDuration: const Duration(milliseconds: 300),
@@ -273,6 +297,6 @@ class _WeekResultsSleepState extends State<WeekResultsSleep> {
             Icons.check_box,
             color: Colors.white,
           ),
-    ]));
+    ])*/);
   }
 }
