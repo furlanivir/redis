@@ -75,7 +75,7 @@ class FAQScreen extends StatelessWidget{
                   Icon(Icons.question_answer_rounded,color: Color.fromRGBO(215, 223, 255, 1,),size: 35,),
                   SizedBox(width: 20),
                   Text('What advantages can I get?',
-                  style: TextStyle(color: Color.fromRGBO(215, 223, 255, 1,),fontStyle: FontStyle.italic,fontWeight: FontWeight.bold,fontSize: 25))
+                  style: TextStyle(color: Color.fromRGBO(215, 223, 255, 1,),fontStyle: FontStyle.italic,fontWeight: FontWeight.bold,fontSize: 22))
                 ]
               ),
               SizedBox(height: 10),

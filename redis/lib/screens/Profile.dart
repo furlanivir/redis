@@ -187,7 +187,7 @@ class ProfileScreenState extends State<ProfileScreen>{
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(32, 12, 75, 1),
         leading: IconButton(
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>SettingsScreen())),
           icon: const Icon(Icons.arrow_back_ios,size: 25,color: Color.fromRGBO(215, 223, 255, 1))),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
