@@ -3,6 +3,7 @@ import 'package:redis/provider.dart';
 import 'package:redis/screens/fadeanimation.dart';
 import 'LoginPage.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignupPage extends StatefulWidget {
   @override
@@ -93,10 +94,12 @@ class _SignupPageState extends State<SignupPage> {
               FadeAnimation(
                   1.5,
                   InkWell(
-                    onTap: () {
+                    onTap: () async {
                       String email = emailController.text;
                       String password = passwordController.text;
                       String confirmPassword = confirmPasswordController.text;
+                      SharedPreferences sp = await SharedPreferences.getInstance();
+                      await sp.setString('email', email);
                       if (password == confirmPassword) {
                         Navigator.push(
                           context,

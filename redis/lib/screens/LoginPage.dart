@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:redis/utils/impact.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   final String? email;
@@ -32,19 +33,25 @@ class _LoginPageState extends State<LoginPage> {
     _passwordController.text = widget.password ?? '';
   }
 
-  void _login() {
+  void _login() async {
   String email = _emailController.text;
   String password = _passwordController.text;
   var password_bytes = utf8.encode(password); // Convert password to bytes
   var digest = sha256.convert(password_bytes); // Hash bytes using SHA-256 algorithm
   final password_Digest = digest.toString();
 
+  SharedPreferences sp = await SharedPreferences.getInstance();
+  String savedEmail = sp.getString('email') ?? '';
+  print('saved email by profile: ${sp.getString('email')}');
+
 
   // Validate the email and password
-  if (email == Provider.of<Exchange>(context, listen: false).email && password_Digest == Impact.password_RightDigest ) {
+  if (email == savedEmail && password_Digest == Impact.password_RightDigest ) {
     // Clear the text fields after login
     _emailController.clear();
     _passwordController.clear();
+    Provider.of<Exchange>(context,listen: false).sendUser(email);
+    Provider.of<Exchange>(context,listen: false).sendPsw(password);
 
 
     // Navigate to the next page after successful login

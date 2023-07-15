@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:redis/provider.dart';
 import 'Settings.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget{
   String? name;
@@ -27,9 +28,13 @@ class ProfileScreenState extends State<ProfileScreen>{
   void initState(){
     super.initState();
     // Set initial values 
-    nameController.text=widget.name ?? '';
-    surnameController.text = widget.surname ?? '';
-    birthdayController.text = widget.birthday ?? '';
+    SharedPreferences.getInstance().then((sp) {
+    setState(() {
+      nameController.text = sp.getString('name') ?? '';
+      surnameController.text = sp.getString('surname') ?? '';
+      birthdayController.text = sp.getString('birthday') ?? '';
+    });
+  });
   }
 
 
@@ -82,32 +87,39 @@ class ProfileScreenState extends State<ProfileScreen>{
     );
   } //buildSurname
   
-  Widget _buildMail(email){
-    return TextFormField(
-      initialValue: email,
-      cursorColor: Colors.white,
-      style: const TextStyle(color: Colors.white),
-      decoration: InputDecoration(
-        labelText: 'Email Address',
-        labelStyle: const TextStyle(color: Colors.white),
-        focusedBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.white)
+  Widget _buildMail(email) {
+  return Consumer<Exchange>(
+    builder: (context, exchange, _) {
+      String currentEmail = email ?? exchange.email;
+
+      return TextFormField(
+        initialValue: currentEmail,
+        cursorColor: Colors.white,
+        style: const TextStyle(color: Colors.white),
+        decoration: InputDecoration(
+          labelText: 'Email Address',
+          labelStyle: const TextStyle(color: Colors.white),
+          focusedBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.white)
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15.0),
+            borderSide: const BorderSide(color: Colors.white),
+          ),
         ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15.0),
-          borderSide: const BorderSide(color: Colors.white),
-        ),),
-      validator: (value) { 
-        if(value!.isEmpty){
-          return 'Email is Required';
-        }
-        else{
-          Provider.of<Exchange>(context,listen: false).sendUser(value);
-        }
-        return null;
-      },
-    );
-  } //buildMail
+        onChanged: (value) {
+          exchange.sendUser(value);
+        },
+        validator: (value) {
+          if (value!.isEmpty) {
+            return 'Email is Required';
+          }
+          return null;
+        },
+      );
+    },
+  );
+}//buildMail
 
 
   Widget _buildBirthday(){
@@ -167,8 +179,8 @@ class ProfileScreenState extends State<ProfileScreen>{
     String name=nameController.text;
     String surname=surnameController.text;
     String birthday=birthdayController.text;
-    String email = Provider.of<Exchange>(context).email;
-    String password = Provider.of<Exchange>(context).password;
+    String email = Provider.of<Exchange>(context, listen: false).email;
+    String password = Provider.of<Exchange>(context, listen: false).password;
 
     
     return Scaffold(
@@ -204,13 +216,18 @@ class ProfileScreenState extends State<ProfileScreen>{
               _buildMail(email),
               _buildBirthday(),
               _buildPsw(password),
-              ElevatedButton(onPressed: ()=>{ //when the button is pressed, if the forme is valid, the data written by the users are saved
-                name = nameController.text,
-                surname = surnameController.text,
-                birthday = birthdayController.text,
-                
+              ElevatedButton(onPressed: ()async{ //when the button is pressed, if the forme is valid, the data written by the users are saved
+                name = nameController.text;
+                surname = surnameController.text;
+                birthday = birthdayController.text;
+                SharedPreferences sp = await SharedPreferences.getInstance();
+                await sp.setString('email', (Provider.of<Exchange>(context, listen: false).email));
+                print('new email from profile: ${sp.getString('email')}');
+                await sp.setString('name', name);
+                await sp.setString('surname', surname);
+                await sp.setString('birthday', birthday);
                 if(_formKey.currentState!.validate()){
-                  _formKey.currentState!.save(),
+                  _formKey.currentState!.save();
                   Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
                     builder: (context)=>SettingsScreen(
@@ -218,8 +235,8 @@ class ProfileScreenState extends State<ProfileScreen>{
                       surname: surname,
                       birthday: birthday
                     ))
-                  )
-                },
+                  );
+                };
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromRGBO(88, 86, 184, 1)
