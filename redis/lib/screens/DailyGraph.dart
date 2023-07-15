@@ -18,7 +18,7 @@ class BarChartSample extends StatefulWidget {
   final shadowColor = const Color.fromARGB(255, 167, 166, 166);
   late List<_BarData> dataList = [
     _BarData(const Color.fromRGBO(142, 156, 223,1), dur, 8,'Time'),
-    _BarData(Color.fromRGBO(97, 36, 141, 1), deep, percDeep,'Deep'),
+    _BarData(Color.fromRGBO(136, 4, 230, 1), deep, percDeep,'Deep'),
     _BarData(Color.fromARGB(255, 205, 84, 227), rem, percRem,'REM'),
     _BarData(Color.fromARGB(255, 172, 136, 243), wake, percWake,'Wake'),
     
