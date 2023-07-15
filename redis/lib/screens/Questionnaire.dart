@@ -4,6 +4,8 @@ import 'package:redis/provider.dart';
 import 'package:redis/screens/question_model.dart';
 import 'package:provider/provider.dart';
 
+import '../repository/DataBaseRepository.dart';
+
 class Questionnaire extends StatefulWidget {
   @override
   State<Questionnaire> createState() => _QuestionnaireState();
@@ -26,9 +28,10 @@ class _QuestionnaireState extends State<Questionnaire> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar:AppBar(
-          backgroundColor: Color.fromRGBO(63, 4, 213, 1),
-          actions: [IconButton(onPressed: () => {showDialog(context: context, builder: (_) => _showInstructionDialog())}, icon: const Icon(Icons.question_mark))],
-          title: const Text('Questionnaire',style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,color: Color.fromARGB(255, 190, 161, 234),),),
+          backgroundColor: Color.fromRGBO(32, 12, 75, 1),
+          actions: [IconButton(onPressed: () => {showDialog(context: context, builder: (_) => _showInstructionDialog(),)}, icon: const Icon(Icons.question_mark, color: Color.fromRGBO(215, 223, 255, 1)))],
+
+          title: const Text('Questionnaire',style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,color: Color.fromRGBO(215, 223, 255, 1),),),
         ),
         body: 
             Container(
@@ -59,7 +62,7 @@ class _QuestionnaireState extends State<Questionnaire> {
           child: Text(
           "Question ${currentQuestionIndex+1}/${questionList.length.toString()}",
           style: const TextStyle(
-            color: Colors.white,
+            color: Color.fromRGBO(215, 223, 255, 1),
             fontSize: 25,
             fontWeight: FontWeight.w600,
           ),
@@ -71,7 +74,7 @@ class _QuestionnaireState extends State<Questionnaire> {
           margin: const EdgeInsets.symmetric(horizontal: 8),
           padding: const EdgeInsets.all(22),
           decoration: BoxDecoration(
-            color: Color.fromRGBO(63, 4, 213, 1),
+            color: Color.fromRGBO(97, 36, 141, 1),
             borderRadius: BorderRadius.circular(16),
           ),
           
@@ -82,7 +85,7 @@ class _QuestionnaireState extends State<Questionnaire> {
                   textAlign: TextAlign.center,
                   questionList[currentQuestionIndex].questionText,
                   style: const TextStyle(
-                    color: Colors.white,
+                    color: Color.fromRGBO(215, 223, 255, 1),
                     fontSize: 45,
                     fontWeight: FontWeight.w600,
             )))]),
@@ -118,8 +121,8 @@ class _QuestionnaireState extends State<Questionnaire> {
               ),  //perchè di tipo int
         style: ElevatedButton.styleFrom(
           shape: const StadiumBorder(),
-          primary: isSelected ? Colors.purple : Colors.white,
-          onPrimary: isSelected ? Colors.white : Colors.black,
+          primary: isSelected ? Color.fromRGBO(32, 12, 75, 1) : Color.fromRGBO(215, 223, 255, 1),
+          onPrimary: isSelected ? Color.fromRGBO(215, 223, 255, 1) : Color.fromRGBO(32, 12, 75, 1),
         ),
         onPressed: (){
 
@@ -175,8 +178,8 @@ class _QuestionnaireState extends State<Questionnaire> {
                 fontWeight: FontWeight.w600)),  
         style: ElevatedButton.styleFrom(
           shape: const StadiumBorder(),
-          primary: Color.fromARGB(255, 93, 129, 245),
-          onPrimary: Colors.white,
+          primary: const Color.fromARGB(255, 93, 129, 245),
+          onPrimary: Color.fromRGBO(215, 223, 255, 1),
         ),
         onPressed: (){
           if(isLocked){
@@ -203,22 +206,20 @@ class _QuestionnaireState extends State<Questionnaire> {
     return AlertDialog(
       title: Text("Nothing: $score0 times; \nVery few: $score1 times; \nFew: $score2 times; \nQuite: $score3 times; \nA lot: $score4 times; \nToo much: $score5 times; \n", 
           style: TextStyle(
-              color: Color.fromRGBO(63, 4, 213, 1),
+              color: Color.fromRGBO(32, 12, 75, 1),
               fontSize: 18,
               fontWeight: FontWeight.w600,
       )),
       content: ElevatedButton(
         child: const Text("Save"), 
         style: ElevatedButton.styleFrom(
-          primary: Color.fromARGB(255, 93, 129, 245),
-          onPrimary: Colors.white,
+          primary: const Color.fromARGB(255, 93, 129, 245),
+          onPrimary: Color.fromRGBO(215, 223, 255, 1),
         ),
         onPressed: (){
-          Navigator.pop(context,
-            MaterialPageRoute(
-            builder: (context) => HomePage())
-          );
+          String day = Provider.of<Exchange>(context, listen: false).today;
           Provider.of<Exchange>(context, listen:false).getMeanScore(mean_score);
+          Provider.of<DataBaseRepository>(context, listen: false).updateQuizScoreByDate(mean_score, day);
           setState(() {
             currentQuestionIndex = 0;
             score0=0;
@@ -229,6 +230,10 @@ class _QuestionnaireState extends State<Questionnaire> {
             score5=0;
             selectedAnswer = null;
           });
+          Navigator.push(
+              context,
+              MaterialPageRoute(builder: ((context) => HomePage()))
+          );
       },),
     );
   }
@@ -237,23 +242,10 @@ class _QuestionnaireState extends State<Questionnaire> {
     return AlertDialog(
       title: Text("Legend: \n 0 = Nothing; \n 1 = Very few; \n 2 = Few; \n 3 = Quite; \n 4 = A lot; \n 5 = Too much", 
           style: TextStyle(
-              color: Color.fromRGBO(63, 4, 213, 1),
+              color: Color.fromRGBO(32, 12, 75, 1),
               fontSize: 40,
               fontWeight: FontWeight.w600,
       )),
-      content: ElevatedButton(
-        child: const Text("Back"), 
-        style: ElevatedButton.styleFrom(
-          primary: Color.fromARGB(255, 93, 129, 245),
-          onPrimary: Colors.white,
-        ),
-        onPressed: (){
-          Navigator.pop(context);
-          setState(() {
-            currentQuestionIndex = currentQuestionIndex;
-            
-          });
-      },),
     );
   }
 

@@ -4,6 +4,9 @@ import 'package:redis/screens/WeekResultsSleep.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:redis/screens/HomePage.dart';
 import 'package:redis/screens/DailyResults.dart';
+import 'package:redis/provider.dart';
+import 'package:provider/provider.dart';
+import '../repository/DataBaseRepository.dart';
 
 class WeekResults extends StatefulWidget {
   const WeekResults({super.key});
@@ -13,20 +16,52 @@ class WeekResults extends StatefulWidget {
 }
 
 class __WeekResultsState extends State<WeekResults> {
+
+  List<int?> eff = [];
+  List<double?> quiz = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadWeekData();
+  }
+
+  Future<void> _loadWeekData() async {
+    eff = await Provider.of<DataBaseRepository>(context, listen: false).findAllEfficiency();
+    quiz = await Provider.of<DataBaseRepository>(context, listen: false).findAllQuiz();
+    setState(() {}); // Trigger a rebuild after loading the data
+  }
+
+
+
   List<Color> gradientColors = [
     const Color(0xFF50E4FF),
     const Color(0xFF2196F3),
   ];
 
-
-  @override
+  
+@override
   Widget build(BuildContext context) {
+    int n = eff.length;
     return 
     Scaffold(
       appBar:AppBar(
-        backgroundColor: const Color.fromRGBO(63, 4, 213, 1),
-        actions: [IconButton(onPressed: () => {showDialog(context: context, builder: (_) => _showQuestionDialog())}, icon: const Icon(Icons.question_mark))],
-        title: const Text('WeeklyResults',style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,color: Color.fromARGB(255, 190, 161, 234),),),
+        backgroundColor:  Color.fromRGBO(32, 12, 75, 1),
+        actions: [IconButton(onPressed: () => {showDialog(context: context, builder: (_) => _showQuestionDialog())}, icon: const Icon(Icons.question_mark, color: Color.fromRGBO(215, 223, 255, 1)))],
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(
+              context,
+              MaterialPageRoute(
+              builder: (context) =>  HomePage()));
+          },
+          icon: Icon(
+            Icons.arrow_back_ios,
+            size: 20,
+            color: Color.fromRGBO(215, 223, 255, 1),
+          ),
+        ),
+        title: const Text('WeeklyResults',style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,color: Color.fromRGBO(215, 223, 255, 1),),),
       ),
 
       body: 
@@ -65,7 +100,7 @@ class __WeekResultsState extends State<WeekResults> {
 
               SizedBox(
                 width:400, 
-                child: 
+                child: n>=7?
                   Stack(
                     children: <Widget>[
                       AspectRatio(
@@ -73,12 +108,19 @@ class __WeekResultsState extends State<WeekResults> {
                         child: Padding(
                           padding: EdgeInsets.all(7),
                           child: LineChart(
-                            mainData(),
+                            mainData(eff, quiz),
                           ),
                         ),
                       ),
                     ],
-              )),
+              ):
+              Text('There is still too little data, check again later. \n\nIn the meantime, hold on, you will achieve the desired results!',
+                style: TextStyle(
+                        fontStyle: FontStyle.italic,
+                        color: Color.fromRGBO(215, 223, 255, 1),
+                        fontSize: 27,
+                        fontWeight: FontWeight.w600)),
+              ),
               
               const SizedBox(height: 70),
 
@@ -95,13 +137,13 @@ class __WeekResultsState extends State<WeekResults> {
                   style: ElevatedButton.styleFrom(
                     shape: const StadiumBorder(),
                     primary: const Color.fromARGB(255, 93, 129, 245),
-                    onPrimary: Colors.white,
+                    onPrimary: Color.fromRGBO(215, 223, 255, 1),
                   ),
                   onPressed: (){
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                      builder: (context) => const WeekResultsSleep()));
+                      builder: (context) =>  WeekResultsSleep()));
                   }
               )),
 
@@ -113,14 +155,14 @@ class __WeekResultsState extends State<WeekResults> {
                   "You are strong! Don't give up!", 
                   style: TextStyle(
                     fontStyle: FontStyle.italic,
-                    color: Colors.white,
+                    color: Color.fromRGBO(215, 223, 255, 1),
                     fontSize: 27,
                     fontWeight: FontWeight.w600)
                 ),  //perchè di tipo int
               ),
         ])),
                   
-        bottomNavigationBar: CurvedNavigationBar(
+        /*bottomNavigationBar: CurvedNavigationBar(
           backgroundColor: const Color.fromRGBO(106, 128, 237, 1),
           color: const Color.fromRGBO(86, 86, 213, 1),
           animationDuration: const Duration(milliseconds: 300),
@@ -148,12 +190,12 @@ class __WeekResultsState extends State<WeekResults> {
             Icons.check_box,
             color: Colors.white,
           ),
-        ])
+        ])*/
     );
   }
 
   Widget bottomTitles(double value, TitleMeta meta) {
-    const style = TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white);
+    const style = TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Color.fromRGBO(215, 223, 255, 1));
     String text;
     switch (value.toInt()) {
       case 0:
@@ -188,7 +230,7 @@ class __WeekResultsState extends State<WeekResults> {
 
   Widget leftTitleWidgets(double value, TitleMeta meta) {
     const style = TextStyle(
-      color: Colors.white,
+      color: Color.fromRGBO(215, 223, 255, 1),
       fontWeight: FontWeight.bold,
       fontSize: 15,
     );
@@ -216,7 +258,9 @@ class __WeekResultsState extends State<WeekResults> {
     return Text(text, style: style, textAlign: TextAlign.left);
   }
 
-  LineChartData mainData() {
+  LineChartData mainData(eff, quiz) {
+    int n = eff.length;
+  
     return LineChartData(
       gridData: FlGridData(
         show: true,
@@ -271,14 +315,14 @@ class __WeekResultsState extends State<WeekResults> {
       maxY: 5,
       lineBarsData: [
         LineChartBarData(
-          spots: const [
-            FlSpot(0, 3),
-            FlSpot(1, 2),
-            FlSpot(2, 5),
-            FlSpot(3, 3.1),
-            FlSpot(4, 4),
-            FlSpot(5, 3),
-            FlSpot(6, 4),
+          spots:  [
+            FlSpot(0, (5 * eff[n-7].toDouble()) / (100 * quiz[n-7])),
+            FlSpot(1, (5 * eff[n-6].toDouble()) / (100 * quiz[n-6])),
+            FlSpot(2, (5 * eff[n-5].toDouble()) / (100 * quiz[n-5])),
+            FlSpot(3, (5 * eff[n-4].toDouble()) / (100 * quiz[n-4])),
+            FlSpot(4, (5 * eff[n-3].toDouble()) / (100 * quiz[n-3])),
+            FlSpot(5, (5 * eff[n-2].toDouble()) / (100 * quiz[n-2])),
+            FlSpot(6, (5 * eff[n-1].toDouble()) / (100 * quiz[n-1])),
           ],
           isCurved: true,
           gradient: LinearGradient(
@@ -306,19 +350,10 @@ class __WeekResultsState extends State<WeekResults> {
     return AlertDialog(
       title: const Text("In this graph you can see the trend of the results of the last week, obtained by comparing your answers to the daily test with the sleep data. \n\n\n 5 = GREAT JOB! \n 4 = KEEP IT UP! \n 3 = YOU ARE ON THE RIGHT TRACK \n 2 = YOU CAN IMPROVE \n 1 = THIS IS NOT GOOD", 
         style: TextStyle(
-          color: Color.fromRGBO(63, 4, 213, 1),
-          fontSize: 20,
+          color: Color.fromRGBO(32, 12, 75, 1),
+          fontSize: 25,
           fontWeight: FontWeight.w600,
       )),
-      content: ElevatedButton(
-        child: const Text("Back"), 
-        style: ElevatedButton.styleFrom(
-          primary: Color.fromARGB(255, 93, 129, 245),
-          onPrimary: Colors.white,
-        ),
-        onPressed: (){
-          Navigator.pop(context);
-          })
     );
   }
 }
